@@ -1,0 +1,78 @@
+{
+  "pcap": "monitor.pcap",
+  "bytes": 4183,
+  "sha256": "c98ab007c9ae1c34ff4601f5f0c9be49488f97376ec2dfb0dfa0e6e5b16146ee",
+  "link_type": "EN10MB",
+  "snaplen": 262144,
+  "packet_count": 46,
+  "connections": 5,
+  "syn": 5,
+  "syn_ack": 5,
+  "fin": 10,
+  "rst": 0,
+  "payload_packets": 8,
+  "flows": [
+    {
+      "client_port": 40930,
+      "kind": "readiness_probe",
+      "packets": 6
+    },
+    {
+      "client_port": 40932,
+      "kind": "query",
+      "command": "GET_STATUS",
+      "packets": 10,
+      "request_packet": 10,
+      "response_packet": 12,
+      "request_bytes": 11,
+      "response_bytes": 130,
+      "request_utc": "2026-11-08T12:26:56.962194+00:00",
+      "response_utc": "2026-11-08T12:26:57.163015+00:00",
+      "request_to_response_ms": 200.821,
+      "response": "OK STATUS cpu_pct=3.09 sample_ms=201 total_kb=8019648 available_kb=6331292 used_kb=1688356 used_pct=21.05 uptime_seconds=13161.42\n"
+    },
+    {
+      "client_port": 40942,
+      "kind": "query",
+      "command": "GET_CPU",
+      "packets": 10,
+      "request_packet": 20,
+      "response_packet": 22,
+      "request_bytes": 8,
+      "response_bytes": 36,
+      "request_utc": "2026-11-08T12:26:57.165607+00:00",
+      "response_utc": "2026-11-08T12:26:57.366322+00:00",
+      "request_to_response_ms": 200.715,
+      "response": "OK CPU usage_pct=6.88 sample_ms=200\n"
+    },
+    {
+      "client_port": 40954,
+      "kind": "query",
+      "command": "GET_MEM",
+      "packets": 10,
+      "request_packet": 30,
+      "response_packet": 32,
+      "request_bytes": 8,
+      "response_bytes": 76,
+      "request_utc": "2026-11-08T12:26:57.369096+00:00",
+      "response_utc": "2026-11-08T12:26:57.369768+00:00",
+      "request_to_response_ms": 0.672,
+      "response": "OK MEM total_kb=8019648 available_kb=6326924 used_kb=1692724 used_pct=21.11\n"
+    },
+    {
+      "client_port": 40962,
+      "kind": "query",
+      "command": "GET_UPTIME",
+      "packets": 10,
+      "request_packet": 40,
+      "response_packet": 42,
+      "request_bytes": 11,
+      "response_bytes": 27,
+      "request_utc": "2026-11-08T12:26:57.372166+00:00",
+      "response_utc": "2026-11-08T12:26:57.372562+00:00",
+      "request_to_response_ms": 0.396,
+      "response": "OK UPTIME seconds=13161.63\n"
+    }
+  ],
+  "status": "PASS"
+}

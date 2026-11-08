@@ -1,0 +1,31 @@
+1794140816.909 pid=48320 role=parent INFO listening address=127.0.0.1 port=8080 timeout_ms=10000
+1794140816.910 pid=48320 role=parent DEBUG debug_enabled
+1794140816.910 pid=48320 role=parent INFO child_created child=48321
+1794140816.910 pid=48321 role=child INFO connected
+1794140816.910 pid=48321 role=child INFO disconnected
+1794140816.911 pid=48320 role=parent INFO child_reaped child=48321 exit=0
+1794140816.962 pid=48320 role=parent INFO child_created child=48323
+1794140816.962 pid=48323 role=child INFO connected
+1794140816.962 pid=48323 role=child DEBUG request_start mono_ms=13161220 command=GET_STATUS
+1794140817.163 pid=48323 role=child DEBUG request_end mono_ms=13161421 elapsed_ms=201
+1794140817.163 pid=48323 role=child INFO disconnected
+1794140817.164 pid=48320 role=parent INFO child_reaped child=48323 exit=0
+1794140817.165 pid=48320 role=parent INFO child_created child=48325
+1794140817.165 pid=48325 role=child INFO connected
+1794140817.165 pid=48325 role=child DEBUG request_start mono_ms=13161424 command=GET_CPU
+1794140817.366 pid=48325 role=child DEBUG request_end mono_ms=13161624 elapsed_ms=200
+1794140817.366 pid=48325 role=child INFO disconnected
+1794140817.367 pid=48320 role=parent INFO child_reaped child=48325 exit=0
+1794140817.369 pid=48320 role=parent INFO child_created child=48329
+1794140817.369 pid=48329 role=child INFO connected
+1794140817.369 pid=48329 role=child DEBUG request_start mono_ms=13161627 command=GET_MEM
+1794140817.369 pid=48329 role=child DEBUG request_end mono_ms=13161627 elapsed_ms=0
+1794140817.370 pid=48329 role=child INFO disconnected
+1794140817.370 pid=48320 role=parent INFO child_reaped child=48329 exit=0
+1794140817.372 pid=48320 role=parent INFO child_created child=48331
+1794140817.372 pid=48331 role=child INFO connected
+1794140817.372 pid=48331 role=child DEBUG request_start mono_ms=13161630 command=GET_UPTIME
+1794140817.372 pid=48331 role=child DEBUG request_end mono_ms=13161630 elapsed_ms=0
+1794140817.372 pid=48331 role=child INFO disconnected
+1794140817.372 pid=48320 role=parent INFO child_reaped child=48331 exit=0
+1794140817.373 pid=48320 role=parent INFO shutdown_complete active=0

@@ -1,0 +1,227 @@
+1794140194.646 pid=45818 role=parent INFO listening address=127.0.0.1 port=49745 timeout_ms=3000
+1794140194.646 pid=45818 role=parent DEBUG debug_enabled
+1794140194.647 pid=45818 role=parent INFO child_created child=45819
+1794140194.647 pid=45819 role=child INFO connected
+1794140194.647 pid=45819 role=child INFO disconnected
+1794140194.647 pid=45818 role=parent INFO child_reaped child=45819 exit=0
+1794140194.698 pid=45818 role=parent INFO child_created child=45820
+1794140194.698 pid=45820 role=child INFO connected
+1794140194.698 pid=45820 role=child DEBUG request_start mono_ms=12538956 command=GET_MEM
+1794140194.698 pid=45820 role=child DEBUG request_end mono_ms=12538956 elapsed_ms=0
+1794140194.699 pid=45820 role=child INFO disconnected
+1794140194.699 pid=45818 role=parent INFO child_created child=45821
+1794140194.699 pid=45818 role=parent INFO child_reaped child=45820 exit=0
+1794140194.699 pid=45821 role=child INFO connected
+1794140194.700 pid=45821 role=child DEBUG request_start mono_ms=12538958 command=GET_MEM
+1794140194.700 pid=45821 role=child DEBUG request_end mono_ms=12538958 elapsed_ms=0
+1794140194.700 pid=45821 role=child INFO disconnected
+1794140194.701 pid=45818 role=parent INFO child_created child=45822
+1794140194.701 pid=45818 role=parent INFO child_reaped child=45821 exit=0
+1794140194.701 pid=45822 role=child INFO connected
+1794140194.701 pid=45822 role=child DEBUG request_start mono_ms=12538959 command=GET_MEM
+1794140194.701 pid=45822 role=child DEBUG request_end mono_ms=12538959 elapsed_ms=0
+1794140194.701 pid=45822 role=child INFO disconnected
+1794140194.702 pid=45818 role=parent INFO child_created child=45823
+1794140194.702 pid=45818 role=parent INFO child_reaped child=45822 exit=0
+1794140194.702 pid=45823 role=child INFO connected
+1794140194.702 pid=45823 role=child DEBUG request_start mono_ms=12538960 command=GET_MEM
+1794140194.702 pid=45823 role=child DEBUG request_end mono_ms=12538960 elapsed_ms=0
+1794140194.703 pid=45823 role=child INFO disconnected
+1794140194.703 pid=45818 role=parent INFO child_created child=45824
+1794140194.703 pid=45818 role=parent INFO child_reaped child=45823 exit=0
+1794140194.703 pid=45824 role=child INFO connected
+1794140194.703 pid=45824 role=child DEBUG request_start mono_ms=12538961 command=GET_MEM
+1794140194.703 pid=45824 role=child DEBUG request_end mono_ms=12538961 elapsed_ms=0
+1794140194.704 pid=45824 role=child INFO disconnected
+1794140194.704 pid=45818 role=parent INFO child_created child=45825
+1794140194.704 pid=45818 role=parent INFO child_reaped child=45824 exit=0
+1794140194.704 pid=45825 role=child INFO connected
+1794140194.704 pid=45825 role=child DEBUG request_start mono_ms=12538962 command=GET_MEM
+1794140194.704 pid=45825 role=child DEBUG request_end mono_ms=12538962 elapsed_ms=0
+1794140194.705 pid=45825 role=child INFO disconnected
+1794140194.705 pid=45818 role=parent INFO child_created child=45826
+1794140194.705 pid=45818 role=parent INFO child_reaped child=45825 exit=0
+1794140194.705 pid=45826 role=child INFO connected
+1794140194.705 pid=45826 role=child DEBUG request_start mono_ms=12538963 command=GET_MEM
+1794140194.705 pid=45826 role=child DEBUG request_end mono_ms=12538963 elapsed_ms=0
+1794140194.706 pid=45826 role=child INFO disconnected
+1794140194.706 pid=45818 role=parent INFO child_created child=45827
+1794140194.706 pid=45818 role=parent INFO child_reaped child=45826 exit=0
+1794140194.706 pid=45827 role=child INFO connected
+1794140194.706 pid=45827 role=child DEBUG request_start mono_ms=12538964 command=GET_MEM
+1794140194.706 pid=45827 role=child DEBUG request_end mono_ms=12538964 elapsed_ms=0
+1794140194.706 pid=45827 role=child INFO disconnected
+1794140194.706 pid=45818 role=parent INFO child_created child=45828
+1794140194.707 pid=45818 role=parent INFO child_reaped child=45827 exit=0
+1794140194.707 pid=45828 role=child INFO connected
+1794140194.707 pid=45828 role=child DEBUG request_start mono_ms=12538965 command=GET_MEM
+1794140194.707 pid=45828 role=child DEBUG request_end mono_ms=12538965 elapsed_ms=0
+1794140194.707 pid=45828 role=child INFO disconnected
+1794140194.707 pid=45818 role=parent INFO child_created child=45829
+1794140194.707 pid=45818 role=parent INFO child_reaped child=45828 exit=0
+1794140194.707 pid=45829 role=child INFO connected
+1794140194.707 pid=45829 role=child DEBUG request_start mono_ms=12538965 command=GET_MEM
+1794140194.707 pid=45829 role=child DEBUG request_end mono_ms=12538965 elapsed_ms=0
+1794140194.708 pid=45829 role=child INFO disconnected
+1794140194.708 pid=45818 role=parent INFO child_created child=45830
+1794140194.708 pid=45818 role=parent INFO child_reaped child=45829 exit=0
+1794140194.708 pid=45830 role=child INFO connected
+1794140194.708 pid=45830 role=child DEBUG request_start mono_ms=12538966 command=GET_MEM
+1794140194.708 pid=45830 role=child DEBUG request_end mono_ms=12538966 elapsed_ms=0
+1794140194.708 pid=45830 role=child INFO disconnected
+1794140194.708 pid=45818 role=parent INFO child_created child=45831
+1794140194.708 pid=45818 role=parent INFO child_reaped child=45830 exit=0
+1794140194.708 pid=45831 role=child INFO connected
+1794140194.708 pid=45831 role=child DEBUG request_start mono_ms=12538967 command=GET_MEM
+1794140194.709 pid=45831 role=child DEBUG request_end mono_ms=12538967 elapsed_ms=0
+1794140194.709 pid=45831 role=child INFO disconnected
+1794140194.709 pid=45818 role=parent INFO child_created child=45832
+1794140194.709 pid=45818 role=parent INFO child_reaped child=45831 exit=0
+1794140194.709 pid=45832 role=child INFO connected
+1794140194.709 pid=45832 role=child DEBUG request_start mono_ms=12538967 command=GET_MEM
+1794140194.709 pid=45832 role=child DEBUG request_end mono_ms=12538967 elapsed_ms=0
+1794140194.710 pid=45832 role=child INFO disconnected
+1794140194.710 pid=45818 role=parent INFO child_created child=45833
+1794140194.710 pid=45818 role=parent INFO child_reaped child=45832 exit=0
+1794140194.710 pid=45833 role=child INFO connected
+1794140194.710 pid=45833 role=child DEBUG request_start mono_ms=12538968 command=GET_MEM
+1794140194.710 pid=45833 role=child DEBUG request_end mono_ms=12538968 elapsed_ms=0
+1794140194.710 pid=45833 role=child INFO disconnected
+1794140194.710 pid=45818 role=parent INFO child_created child=45834
+1794140194.710 pid=45818 role=parent INFO child_reaped child=45833 exit=0
+1794140194.710 pid=45834 role=child INFO connected
+1794140194.710 pid=45834 role=child DEBUG request_start mono_ms=12538969 command=GET_MEM
+1794140194.711 pid=45834 role=child DEBUG request_end mono_ms=12538969 elapsed_ms=0
+1794140194.711 pid=45834 role=child INFO disconnected
+1794140194.711 pid=45818 role=parent INFO child_created child=45835
+1794140194.711 pid=45818 role=parent INFO child_reaped child=45834 exit=0
+1794140194.711 pid=45835 role=child INFO connected
+1794140194.711 pid=45835 role=child DEBUG request_start mono_ms=12538969 command=GET_MEM
+1794140194.711 pid=45835 role=child DEBUG request_end mono_ms=12538969 elapsed_ms=0
+1794140194.711 pid=45835 role=child INFO disconnected
+1794140194.711 pid=45818 role=parent INFO child_created child=45836
+1794140194.711 pid=45818 role=parent INFO child_reaped child=45835 exit=0
+1794140194.711 pid=45836 role=child INFO connected
+1794140194.711 pid=45836 role=child DEBUG request_start mono_ms=12538970 command=GET_MEM
+1794140194.712 pid=45836 role=child DEBUG request_end mono_ms=12538970 elapsed_ms=0
+1794140194.712 pid=45836 role=child INFO disconnected
+1794140194.712 pid=45818 role=parent INFO child_created child=45837
+1794140194.712 pid=45818 role=parent INFO child_reaped child=45836 exit=0
+1794140194.712 pid=45837 role=child INFO connected
+1794140194.712 pid=45837 role=child DEBUG request_start mono_ms=12538970 command=GET_MEM
+1794140194.712 pid=45837 role=child DEBUG request_end mono_ms=12538970 elapsed_ms=0
+1794140194.712 pid=45837 role=child INFO disconnected
+1794140194.713 pid=45818 role=parent INFO child_created child=45838
+1794140194.713 pid=45818 role=parent INFO child_reaped child=45837 exit=0
+1794140194.713 pid=45838 role=child INFO connected
+1794140194.713 pid=45838 role=child DEBUG request_start mono_ms=12538971 command=GET_MEM
+1794140194.713 pid=45838 role=child DEBUG request_end mono_ms=12538971 elapsed_ms=0
+1794140194.713 pid=45838 role=child INFO disconnected
+1794140194.713 pid=45818 role=parent INFO child_created child=45839
+1794140194.713 pid=45818 role=parent INFO child_reaped child=45838 exit=0
+1794140194.713 pid=45839 role=child INFO connected
+1794140194.713 pid=45839 role=child DEBUG request_start mono_ms=12538971 command=GET_MEM
+1794140194.713 pid=45839 role=child DEBUG request_end mono_ms=12538971 elapsed_ms=0
+1794140194.714 pid=45839 role=child INFO disconnected
+1794140194.714 pid=45818 role=parent INFO child_created child=45840
+1794140194.714 pid=45818 role=parent INFO child_reaped child=45839 exit=0
+1794140194.714 pid=45840 role=child INFO connected
+1794140194.714 pid=45840 role=child DEBUG request_start mono_ms=12538972 command=GET_MEM
+1794140194.714 pid=45840 role=child DEBUG request_end mono_ms=12538972 elapsed_ms=0
+1794140194.714 pid=45840 role=child INFO disconnected
+1794140194.714 pid=45818 role=parent INFO child_created child=45841
+1794140194.714 pid=45841 role=child INFO connected
+1794140194.714 pid=45818 role=parent INFO child_reaped child=45840 exit=0
+1794140194.714 pid=45841 role=child DEBUG request_start mono_ms=12538972 command=GET_MEM
+1794140194.714 pid=45841 role=child DEBUG request_end mono_ms=12538973 elapsed_ms=1
+1794140194.715 pid=45841 role=child INFO disconnected
+1794140194.715 pid=45818 role=parent INFO child_created child=45842
+1794140194.715 pid=45818 role=parent INFO child_reaped child=45841 exit=0
+1794140194.715 pid=45842 role=child INFO connected
+1794140194.715 pid=45842 role=child DEBUG request_start mono_ms=12538973 command=GET_MEM
+1794140194.715 pid=45842 role=child DEBUG request_end mono_ms=12538973 elapsed_ms=0
+1794140194.715 pid=45842 role=child INFO disconnected
+1794140194.715 pid=45818 role=parent INFO child_created child=45843
+1794140194.715 pid=45818 role=parent INFO child_reaped child=45842 exit=0
+1794140194.715 pid=45843 role=child INFO connected
+1794140194.715 pid=45843 role=child DEBUG request_start mono_ms=12538973 command=GET_MEM
+1794140194.715 pid=45843 role=child DEBUG request_end mono_ms=12538973 elapsed_ms=0
+1794140194.715 pid=45843 role=child INFO disconnected
+1794140194.716 pid=45818 role=parent INFO child_created child=45844
+1794140194.716 pid=45818 role=parent INFO child_reaped child=45843 exit=0
+1794140194.716 pid=45844 role=child INFO connected
+1794140194.716 pid=45844 role=child DEBUG request_start mono_ms=12538974 command=GET_MEM
+1794140194.716 pid=45844 role=child DEBUG request_end mono_ms=12538974 elapsed_ms=0
+1794140194.716 pid=45844 role=child INFO disconnected
+1794140194.716 pid=45818 role=parent INFO child_created child=45845
+1794140194.716 pid=45818 role=parent INFO child_reaped child=45844 exit=0
+1794140194.716 pid=45845 role=child INFO connected
+1794140194.716 pid=45845 role=child DEBUG request_start mono_ms=12538974 command=GET_MEM
+1794140194.716 pid=45845 role=child DEBUG request_end mono_ms=12538974 elapsed_ms=0
+1794140194.716 pid=45845 role=child INFO disconnected
+1794140194.716 pid=45818 role=parent INFO child_created child=45846
+1794140194.717 pid=45818 role=parent INFO child_reaped child=45845 exit=0
+1794140194.717 pid=45846 role=child INFO connected
+1794140194.717 pid=45846 role=child DEBUG request_start mono_ms=12538975 command=GET_MEM
+1794140194.717 pid=45846 role=child DEBUG request_end mono_ms=12538975 elapsed_ms=0
+1794140194.717 pid=45846 role=child INFO disconnected
+1794140194.717 pid=45818 role=parent INFO child_created child=45847
+1794140194.717 pid=45818 role=parent INFO child_reaped child=45846 exit=0
+1794140194.717 pid=45847 role=child INFO connected
+1794140194.717 pid=45847 role=child DEBUG request_start mono_ms=12538975 command=GET_MEM
+1794140194.717 pid=45847 role=child DEBUG request_end mono_ms=12538975 elapsed_ms=0
+1794140194.717 pid=45847 role=child INFO disconnected
+1794140194.717 pid=45818 role=parent INFO child_created child=45848
+1794140194.717 pid=45818 role=parent INFO child_reaped child=45847 exit=0
+1794140194.717 pid=45848 role=child INFO connected
+1794140194.717 pid=45848 role=child DEBUG request_start mono_ms=12538976 command=GET_MEM
+1794140194.718 pid=45848 role=child DEBUG request_end mono_ms=12538976 elapsed_ms=0
+1794140194.718 pid=45848 role=child INFO disconnected
+1794140194.718 pid=45818 role=parent INFO child_created child=45849
+1794140194.718 pid=45818 role=parent INFO child_reaped child=45848 exit=0
+1794140194.718 pid=45849 role=child INFO connected
+1794140194.718 pid=45849 role=child DEBUG request_start mono_ms=12538976 command=GET_MEM
+1794140194.718 pid=45849 role=child DEBUG request_end mono_ms=12538976 elapsed_ms=0
+1794140194.718 pid=45849 role=child INFO disconnected
+1794140194.718 pid=45818 role=parent INFO child_reaped child=45849 exit=0
+1794140194.739 pid=45818 role=parent INFO child_created child=45850
+1794140194.739 pid=45850 role=child INFO connected
+1794140194.740 pid=45818 role=parent INFO child_created child=45851
+1794140194.740 pid=45851 role=child INFO connected
+1794140194.740 pid=45818 role=parent INFO child_created child=45852
+1794140194.740 pid=45852 role=child INFO connected
+1794140194.740 pid=45818 role=parent INFO child_created child=45853
+1794140194.740 pid=45853 role=child INFO connected
+1794140194.740 pid=45818 role=parent INFO child_created child=45854
+1794140194.740 pid=45854 role=child INFO connected
+1794140194.740 pid=45818 role=parent INFO child_created child=45855
+1794140194.740 pid=45855 role=child INFO connected
+1794140194.740 pid=45818 role=parent INFO child_created child=45856
+1794140194.740 pid=45856 role=child INFO connected
+1794140194.740 pid=45818 role=parent INFO child_created child=45857
+1794140194.740 pid=45857 role=child INFO connected
+1794140194.740 pid=45818 role=parent INFO child_created child=45858
+1794140194.740 pid=45858 role=child INFO connected
+1794140194.741 pid=45818 role=parent INFO child_created child=45859
+1794140194.741 pid=45859 role=child INFO connected
+1794140194.763 pid=45850 role=child INFO disconnected
+1794140194.763 pid=45851 role=child INFO disconnected
+1794140194.763 pid=45854 role=child INFO disconnected
+1794140194.763 pid=45853 role=child INFO disconnected
+1794140194.763 pid=45852 role=child INFO disconnected
+1794140194.763 pid=45855 role=child INFO disconnected
+1794140194.763 pid=45857 role=child INFO disconnected
+1794140194.763 pid=45818 role=parent INFO child_reaped child=45850 exit=0
+1794140194.763 pid=45818 role=parent INFO child_reaped child=45851 exit=0
+1794140194.763 pid=45818 role=parent INFO child_reaped child=45852 exit=0
+1794140194.763 pid=45818 role=parent INFO child_reaped child=45853 exit=0
+1794140194.763 pid=45818 role=parent INFO child_reaped child=45854 exit=0
+1794140194.763 pid=45858 role=child INFO disconnected
+1794140194.763 pid=45856 role=child INFO disconnected
+1794140194.763 pid=45818 role=parent INFO child_reaped child=45855 exit=0
+1794140194.763 pid=45818 role=parent INFO child_reaped child=45856 exit=0
+1794140194.763 pid=45859 role=child INFO disconnected
+1794140194.763 pid=45818 role=parent INFO child_reaped child=45857 exit=0
+1794140194.763 pid=45818 role=parent INFO child_reaped child=45858 exit=0
+1794140194.764 pid=45818 role=parent INFO child_reaped child=45859 exit=0
+1794140194.814 pid=45818 role=parent INFO shutdown_complete active=0

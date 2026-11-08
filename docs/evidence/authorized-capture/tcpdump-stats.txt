@@ -1,0 +1,4 @@
+Source: operator supplied the following terminal statistics after being asked to stop tcpdump with Ctrl+C.
+46 packets captured
+92 packets received by filter
+0 packets dropped by kernel

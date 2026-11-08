@@ -1,0 +1,17 @@
+test=basic utc=20261108T121022.650675Z cwd=/home/p1yan/mid-project
+$ python3 tests/test_basic.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.54.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026', machine='x86_64')
+$ ldd /home/p1yan/mid-project/build/protected-debug1/bin/client
+	linux-vdso.so.1 (0x0000798080756000)
+	libmonitor.so => /home/p1yan/mid-project/build/protected-debug1/bin/../lib/libmonitor.so (0x0000798080744000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x0000798080400000)
+	/lib64/ld-linux-x86-64.so.2 (0x0000798080758000)
+exit=0
+$ ldd /home/p1yan/mid-project/build/protected-debug1/bin/server
+	linux-vdso.so.1 (0x000074b6e09db000)
+	libmonitor.so => /home/p1yan/mid-project/build/protected-debug1/bin/../lib/libmonitor.so (0x000074b6e09c7000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x000074b6e0600000)
+	/lib64/ld-linux-x86-64.so.2 (0x000074b6e09dd000)
+exit=0
+BLOCKED: [Errno 1] Operation not permitted; execution environment denied operation
+BLOCKED: basic

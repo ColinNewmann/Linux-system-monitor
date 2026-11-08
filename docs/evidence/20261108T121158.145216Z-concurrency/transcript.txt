@@ -1,0 +1,82 @@
+test=concurrency utc=20261108T121158.145216Z cwd=/home/p1yan/mid-project
+$ python3 tests/test_concurrency.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.54.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026', machine='x86_64')
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 44807 --log-level 2 --timeout-ms 10000 2> docs/evidence/20261108T121158.145216Z-concurrency/server-44807-12262404069064.log
+server_parent=44342 port=44807
+10 simultaneous connections: parent=44342 child_pids=[44344, 44345, 44346, 44347, 44348, 44349, 44350, 44351, 44352, 44353]
+[
+  {
+    "client": 0,
+    "start": 12262.484372236,
+    "end": 12262.710730769,
+    "response": "OK CPU usage_pct=1.88 sample_ms=201"
+  },
+  {
+    "client": 1,
+    "start": 12262.484459966,
+    "end": 12262.708745205,
+    "response": "OK CPU usage_pct=1.88 sample_ms=201"
+  },
+  {
+    "client": 2,
+    "start": 12262.485145282,
+    "end": 12262.711049517,
+    "response": "OK CPU usage_pct=1.88 sample_ms=200"
+  },
+  {
+    "client": 3,
+    "start": 12262.484526075,
+    "end": 12262.710698967,
+    "response": "OK CPU usage_pct=1.88 sample_ms=201"
+  },
+  {
+    "client": 4,
+    "start": 12262.485099415,
+    "end": 12262.70725735,
+    "response": "OK CPU usage_pct=1.88 sample_ms=200"
+  },
+  {
+    "client": 5,
+    "start": 12262.484578101,
+    "end": 12262.711009808,
+    "response": "OK CPU usage_pct=1.88 sample_ms=201"
+  },
+  {
+    "client": 6,
+    "start": 12262.484624881,
+    "end": 12262.710564024,
+    "response": "OK CPU usage_pct=1.88 sample_ms=200"
+  },
+  {
+    "client": 7,
+    "start": 12262.484960535,
+    "end": 12262.710978873,
+    "response": "OK CPU usage_pct=1.88 sample_ms=200"
+  },
+  {
+    "client": 8,
+    "start": 12262.48471702,
+    "end": 12262.71089187,
+    "response": "OK CPU usage_pct=1.88 sample_ms=201"
+  },
+  {
+    "client": 9,
+    "start": 12262.484184135,
+    "end": 12262.710642248,
+    "response": "OK CPU usage_pct=1.88 sample_ms=200"
+  }
+]
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=2.50 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=1.23 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=6.79 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.00 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=2.47 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.00 sample_ms=201'
+concurrent_s=0.226865 sequential_s=2.015170 client_overlap_s=0.222112 server_overlap_ms=200
+all children reaped; parent still running: True
+server_exit=0 log=docs/evidence/20261108T121158.145216Z-concurrency/server-44807-12262404069064.log
+PASS: concurrency

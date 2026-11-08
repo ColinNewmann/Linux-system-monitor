@@ -1,0 +1,19 @@
+1794140195.350 pid=45882 role=parent INFO listening address=127.0.0.1 port=43471 timeout_ms=3000
+1794140195.350 pid=45882 role=parent DEBUG debug_enabled
+1794140195.370 pid=45882 role=parent INFO child_created child=45883
+1794140195.370 pid=45883 role=child INFO connected
+1794140195.370 pid=45883 role=child INFO disconnected
+1794140195.371 pid=45882 role=parent INFO child_reaped child=45883 exit=0
+1794140195.421 pid=45882 role=parent INFO child_created child=45884
+1794140195.421 pid=45884 role=child INFO connected
+1794140195.422 pid=45884 role=child DEBUG request_start mono_ms=12539680 command=GET_MEM
+1794140195.422 pid=45884 role=child ERROR system_info_failed
+1794140195.422 pid=45884 role=child DEBUG request_end mono_ms=12539680 elapsed_ms=0
+1794140195.422 pid=45884 role=child DEBUG request_start mono_ms=12539680 command=GET_STATUS
+1794140195.623 pid=45884 role=child ERROR system_info_failed
+1794140195.623 pid=45884 role=child DEBUG request_end mono_ms=12539881 elapsed_ms=201
+1794140195.624 pid=45884 role=child DEBUG request_start mono_ms=12539882 command=GET_UPTIME
+1794140195.624 pid=45884 role=child DEBUG request_end mono_ms=12539882 elapsed_ms=0
+1794140195.625 pid=45884 role=child INFO disconnected
+1794140195.625 pid=45882 role=parent INFO child_reaped child=45884 exit=0
+1794140195.676 pid=45882 role=parent INFO shutdown_complete active=0

@@ -1,0 +1,33 @@
+1794140194.411 pid=45773 role=parent INFO listening address=127.0.0.1 port=56367 timeout_ms=3000
+1794140194.432 pid=45773 role=parent INFO child_created child=45774
+1794140194.432 pid=45774 role=child INFO connected
+1794140194.432 pid=45774 role=child INFO disconnected
+1794140194.432 pid=45773 role=parent INFO child_reaped child=45774 exit=0
+1794140194.484 pid=45773 role=parent INFO child_created child=45776
+1794140194.484 pid=45776 role=child INFO connected
+1794140194.485 pid=45776 role=child INFO disconnected
+1794140194.486 pid=45773 role=parent INFO child_reaped child=45776 exit=0
+1794140194.488 pid=45773 role=parent INFO child_created child=45778
+1794140194.488 pid=45778 role=child INFO connected
+1794140194.488 pid=45778 role=child ERROR invalid_command
+1794140194.489 pid=45778 role=child INFO disconnected
+1794140194.489 pid=45773 role=parent INFO child_reaped child=45778 exit=0
+1794140194.491 pid=45773 role=parent INFO child_created child=45780
+1794140194.491 pid=45780 role=child INFO connected
+1794140194.492 pid=45780 role=child INFO disconnected
+1794140194.492 pid=45773 role=parent INFO child_reaped child=45780 exit=0
+1794140194.494 pid=45773 role=parent INFO child_created child=45782
+1794140194.494 pid=45782 role=child INFO connected
+1794140194.494 pid=45782 role=child ERROR invalid_command
+1794140194.494 pid=45782 role=child INFO disconnected
+1794140194.494 pid=45773 role=parent INFO child_reaped child=45782 exit=0
+1794140194.495 pid=45773 role=parent INFO child_created child=45784
+1794140194.496 pid=45784 role=child INFO connected
+1794140194.496 pid=45784 role=child INFO disconnected
+1794140194.496 pid=45773 role=parent INFO child_reaped child=45784 exit=0
+1794140194.497 pid=45773 role=parent INFO child_created child=45786
+1794140194.497 pid=45786 role=child INFO connected
+1794140194.497 pid=45786 role=child ERROR invalid_command
+1794140194.497 pid=45786 role=child INFO disconnected
+1794140194.498 pid=45773 role=parent INFO child_reaped child=45786 exit=0
+1794140194.498 pid=45773 role=parent INFO shutdown_complete active=0

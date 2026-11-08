@@ -1,0 +1,58 @@
+test=lifecycle utc=20261108T121634.644792Z cwd=/home/p1yan/mid-project
+$ python3 tests/test_lifecycle.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.54.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026', machine='x86_64')
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 49745 --log-level 2 --timeout-ms 3000 2> docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log
+server_parent=45818 port=49745
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528384 used_kb=1491264 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528188 used_kb=1491460 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528188 used_kb=1491460 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528188 used_kb=1491460 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528188 used_kb=1491460 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6528188 used_kb=1491460 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6527992 used_kb=1491656 used_pct=18.60'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6527992 used_kb=1491656 used_pct=18.60'
+parent=45818 fd_before=6 fd_after=6 children=[]
+shutdown with held children: [45850, 45851, 45852, 45853, 45854, 45855, 45856, 45857, 45858, 45859]
+child=45850 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742868]'}
+child=45851 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742869]'}
+child=45852 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742870]'}
+child=45853 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742871]'}
+child=45854 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742872]'}
+child=45855 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742873]'}
+child=45856 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742874]'}
+child=45857 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742875]'}
+child=45858 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742876]'}
+child=45859 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '2': '/home/p1yan/mid-project/docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log', '6': 'socket:[742877]'}
+server_exit=0 log=docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12538903653515.log
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 49745 --log-level 2 --timeout-ms 3000 2> docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12539085824892.log
+server_parent=45863 port=49745
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 49745 --command GET_STATUS
+OK STATUS cpu_pct=1.24 sample_ms=200 total_kb=8019648 available_kb=6526876 used_kb=1492772 used_pct=18.61 uptime_seconds=12539.36
+1794140194.905 pid=45868 role=client INFO connected host=127.0.0.1 port=49745
+1794140195.106 pid=45868 role=client INFO disconnected
+exit=0
+restarted successfully on same port=49745
+server_exit=0 log=docs/evidence/20261108T121634.644792Z-lifecycle/server-49745-12539085824892.log
+PASS: lifecycle

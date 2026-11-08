@@ -1,0 +1,36 @@
+1794140190.790 pid=45657 role=parent ERROR TEST BASELINE: protections intentionally disabled; loopback only
+1794140190.790 pid=45657 role=parent INFO listening address=127.0.0.1 port=44295 timeout_ms=400
+1794140190.790 pid=45657 role=parent DEBUG debug_enabled
+1794140190.791 pid=45657 role=parent INFO child_created child=45658
+1794140190.791 pid=45658 role=child INFO connected
+1794140190.791 pid=45658 role=child INFO disconnected
+1794140190.791 pid=45657 role=parent INFO child_reaped child=45658 exit=0
+1794140190.842 pid=45657 role=parent INFO child_created child=45659
+1794140190.842 pid=45659 role=child INFO connected
+1794140190.842 pid=45659 role=child DEBUG request_start mono_ms=12535100 command=GET_MEM garbage
+1794140190.842 pid=45659 role=child DEBUG request_end mono_ms=12535100 elapsed_ms=0
+1794140190.843 pid=45659 role=child INFO disconnected
+1794140190.843 pid=45657 role=parent INFO child_created child=45660
+1794140190.843 pid=45657 role=parent INFO child_reaped child=45659 exit=0
+1794140190.843 pid=45660 role=child INFO connected
+1794140190.843 pid=45660 role=child DEBUG request_start mono_ms=12535102 command=GET_MEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+1794140190.844 pid=45660 role=child DEBUG request_end mono_ms=12535102 elapsed_ms=0
+1794140190.844 pid=45660 role=child INFO disconnected
+1794140190.844 pid=45657 role=parent INFO child_reaped child=45660 exit=0
+1794140190.844 pid=45657 role=parent INFO child_created child=45661
+1794140190.845 pid=45661 role=child INFO connected
+1794140191.666 pid=45661 role=child INFO disconnected
+1794140191.667 pid=45657 role=parent INFO child_reaped child=45661 exit=0
+1794140191.691 pid=45657 role=parent INFO child_created child=45663
+1794140191.691 pid=45663 role=child INFO connected
+1794140191.691 pid=45663 role=child DEBUG request_start mono_ms=12535949 command=GET_CPU
+1794140191.892 pid=45663 role=child ERROR send_failed errno=104 message=Connection reset by peer
+1794140191.892 pid=45663 role=child INFO disconnected
+1794140191.892 pid=45657 role=parent INFO child_reaped child=45663 exit=0
+1794140191.899 pid=45657 role=parent INFO child_created child=45665
+1794140191.899 pid=45665 role=child INFO connected
+1794140191.900 pid=45665 role=child DEBUG request_start mono_ms=12536158 command=GET_MEM
+1794140191.900 pid=45665 role=child DEBUG request_end mono_ms=12536158 elapsed_ms=0
+1794140191.900 pid=45665 role=child INFO disconnected
+1794140191.901 pid=45657 role=parent INFO child_reaped child=45665 exit=0
+1794140191.901 pid=45657 role=parent INFO shutdown_complete active=0

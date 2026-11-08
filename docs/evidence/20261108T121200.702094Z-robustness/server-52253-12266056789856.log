@@ -1,0 +1,41 @@
+1794139921.799 pid=44397 role=parent INFO listening address=127.0.0.1 port=52253 timeout_ms=400
+1794139921.799 pid=44397 role=parent DEBUG debug_enabled
+1794139921.820 pid=44397 role=parent INFO child_created child=44398
+1794139921.820 pid=44398 role=child INFO connected
+1794139921.820 pid=44398 role=child INFO disconnected
+1794139921.820 pid=44397 role=parent INFO child_reaped child=44398 exit=0
+1794139921.871 pid=44397 role=parent INFO child_created child=44399
+1794139921.871 pid=44399 role=child INFO connected
+1794139921.871 pid=44399 role=child DEBUG request_start mono_ms=12266130 command=GET_MEM garbage
+1794139921.871 pid=44399 role=child ERROR invalid_command
+1794139921.872 pid=44399 role=child DEBUG request_end mono_ms=12266130 elapsed_ms=0
+1794139921.872 pid=44399 role=child INFO disconnected
+1794139921.873 pid=44397 role=parent INFO child_created child=44400
+1794139921.873 pid=44397 role=parent INFO child_reaped child=44399 exit=0
+1794139921.873 pid=44400 role=child INFO connected
+1794139921.873 pid=44400 role=child ERROR request_rejected result=-3
+1794139921.873 pid=44400 role=child INFO disconnected
+1794139921.874 pid=44397 role=parent INFO child_reaped child=44400 exit=0
+1794139921.874 pid=44397 role=parent INFO child_created child=44401
+1794139921.874 pid=44401 role=child INFO connected
+1794139922.275 pid=44401 role=child ERROR request_rejected result=-2
+1794139922.276 pid=44401 role=child INFO disconnected
+1794139922.276 pid=44397 role=parent INFO child_reaped child=44401 exit=0
+1794139922.676 pid=44397 role=parent INFO child_created child=44402
+1794139922.676 pid=44402 role=child INFO connected
+1794139923.077 pid=44402 role=child ERROR request_rejected result=-2
+1794139923.077 pid=44402 role=child INFO disconnected
+1794139923.078 pid=44397 role=parent INFO child_reaped child=44402 exit=0
+1794139923.231 pid=44397 role=parent INFO child_created child=44404
+1794139923.231 pid=44404 role=child INFO connected
+1794139923.231 pid=44404 role=child DEBUG request_start mono_ms=12267489 command=GET_CPU
+1794139923.432 pid=44404 role=child ERROR send_failed errno=104 message=Connection reset by peer
+1794139923.432 pid=44404 role=child INFO disconnected
+1794139923.432 pid=44397 role=parent INFO child_reaped child=44404 exit=0
+1794139923.437 pid=44397 role=parent INFO child_created child=44412
+1794139923.437 pid=44412 role=child INFO connected
+1794139923.437 pid=44412 role=child DEBUG request_start mono_ms=12267695 command=GET_MEM
+1794139923.437 pid=44412 role=child DEBUG request_end mono_ms=12267695 elapsed_ms=0
+1794139923.438 pid=44412 role=child INFO disconnected
+1794139923.438 pid=44397 role=parent INFO child_reaped child=44412 exit=0
+1794139923.438 pid=44397 role=parent INFO shutdown_complete active=0

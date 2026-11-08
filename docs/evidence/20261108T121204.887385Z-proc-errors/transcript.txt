@@ -1,0 +1,25 @@
+test=proc-errors utc=20261108T121204.887385Z cwd=/home/p1yan/mid-project
+$ python3 tests/test_proc_errors.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.54.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026', machine='x86_64')
+fault injection: fopen('/proc/stat') returns EACCES in test binary only
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server-fault --port 55189 --log-level 2 --timeout-ms 3000 2> docs/evidence/20261108T121204.887385Z-proc-errors/server-55189-12269146574132.log
+server_parent=44564 port=55189
+request=b'GET_CPU\n' bytes=8 response='ERR SYSTEM_INFO'
+request=b'GET_STATUS\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6542488 used_kb=1477160 used_pct=18.42'
+server_exit=0 log=docs/evidence/20261108T121204.887385Z-proc-errors/server-55189-12269146574132.log
+fault injection: fopen('/proc/meminfo') returns EACCES in test binary only
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server-fault --port 54575 --log-level 2 --timeout-ms 3000 2> docs/evidence/20261108T121204.887385Z-proc-errors/server-54575-12269268040175.log
+server_parent=44567 port=54575
+request=b'GET_MEM\n' bytes=8 response='ERR SYSTEM_INFO'
+request=b'GET_STATUS\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_UPTIME\n' bytes=11 response='OK UPTIME seconds=12269.54'
+server_exit=0 log=docs/evidence/20261108T121204.887385Z-proc-errors/server-54575-12269268040175.log
+fault injection: fopen('/proc/uptime') returns EACCES in test binary only
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server-fault --port 59993 --log-level 2 --timeout-ms 3000 2> docs/evidence/20261108T121204.887385Z-proc-errors/server-59993-12269609999088.log
+server_parent=44570 port=59993
+request=b'GET_UPTIME\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_STATUS\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019648 available_kb=6540168 used_kb=1479480 used_pct=18.45'
+server_exit=0 log=docs/evidence/20261108T121204.887385Z-proc-errors/server-59993-12269609999088.log
+PASS: proc-errors

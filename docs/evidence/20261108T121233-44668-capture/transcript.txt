@@ -1,0 +1,25 @@
++ server_pid=
++ capture_pid=
++ trap cleanup EXIT
++ trap 'exit 130' INT
++ trap 'exit 143' TERM
++ capture_pid=44673
++ tcpdump -i lo -nn -s 0 -U -w docs/evidence/20261108T121233-44668-capture/monitor.pcap 'tcp port 8080'
++ for _ in {1..50}
++ kill -0 44673
++ rg -q 'listening on' docs/evidence/20261108T121233-44668-capture/tcpdump.log
++ sleep 0.1
++ for _ in {1..50}
++ kill -0 44673
++ cat docs/evidence/20261108T121233-44668-capture/tcpdump.log
+tcpdump: lo: You don't have permission to perform this capture on that device
+(Attempt to create packet socket failed - CAP_NET_RAW may be required)
++ echo 'BLOCKED: tcpdump could not start. Request capture permission; do not claim R4 passed.'
+BLOCKED: tcpdump could not start. Request capture permission; do not claim R4 passed.
++ exit 77
++ cleanup
++ set +e
++ [[ -n '' ]]
++ [[ -n 44673 ]]
++ kill -INT 44673
++ wait 44673
