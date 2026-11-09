@@ -20,7 +20,7 @@ static int signal_pipe[2] = {-1, -1};
 static pid_t children[MAX_CHILDREN];
 static volatile sig_atomic_t shutting_down;
 
-static void parent_signal(int signal_number)
+static void parent_signal(int signal_number) /* parent signal handler */
 {
     int saved = errno;
     if (signal_number != SIGCHLD) shutting_down = 1;
@@ -30,13 +30,13 @@ static void parent_signal(int signal_number)
     errno = saved;
 }
 
-static void child_signal(int signal_number)
+static void child_signal(int signal_number) /* child signal handler */
 {
     (void)signal_number;
     mon_stop = 1;
 }
 
-static int install_signal(int number, void (*handler)(int))
+static int install_signal(int number, void (*handler)(int)) /* send signal and it's handler registered to Linux */
 {
     struct sigaction action;
     memset(&action, 0, sizeof(action));
@@ -45,13 +45,13 @@ static int install_signal(int number, void (*handler)(int))
     return sigaction(number, &action, NULL);
 }
 
-static int make_nonblocking(int fd)
+static int make_nonblocking(int fd) /* set file descriptor to non-blocking mode */
 {
     int flags = fcntl(fd, F_GETFL);
     return flags < 0 ? -1 : fcntl(fd, F_SETFL, flags | O_NONBLOCK);
 }
 
-static void reap_children(void)
+static void reap_children(void) /* reap all terminated child processes to prevent zombies */
 {
     int status;
     pid_t pid;
@@ -62,14 +62,14 @@ static void reap_children(void)
     }
 }
 
-static int active_children(void)
+static int active_children(void) /* count the number of active child processes */
 {
     int count = 0;
     for (size_t i = 0; i < MAX_CHILDREN; ++i) if (children[i]) ++count;
     return count;
 }
 
-static void shutdown_children(void)
+static void shutdown_children(void) /* gracefully shutdown all child processes */
 {
     for (size_t i = 0; i < MAX_CHILDREN; ++i) if (children[i]) kill(children[i], SIGTERM);
     int64_t deadline = mon_now_ms() + 2000;
@@ -89,7 +89,7 @@ static void shutdown_children(void)
     }
 }
 
-static int send_response(int fd, const char *response, int timeout_ms)
+static int send_response(int fd, const char *response, int timeout_ms) /* send response to client */
 {
     int result = mon_send_all(fd, response, strlen(response), timeout_ms);
     if (result != MON_LINE && result != MON_CANCELLED) {
@@ -99,7 +99,7 @@ static int send_response(int fd, const char *response, int timeout_ms)
     return result;
 }
 
-static void serve_client(int fd, int timeout_ms)
+static void serve_client(int fd, int timeout_ms) /* handle client requests and send responses */
 {
     LOG_INFO("connected");
     int read_timeout = timeout_ms;
@@ -148,7 +148,7 @@ static void serve_client(int fd, int timeout_ms)
     LOG_INFO("disconnected");
 }
 
-static void usage(const char *program)
+static void usage(const char *program) /* print usage information for the program */
 {
     fprintf(stderr, "Usage: %s [--bind IPv4] [--port 1..65535] [--log-level 0..2] [--timeout-ms 100..600000]\n", program);
 }
@@ -228,10 +228,12 @@ int main(int argc, char **argv)
         if (slot == MAX_CHILDREN) { LOG_ERROR("connection_limit"); close(connection); continue; }
         sigset_t blocked, previous;
         sigemptyset(&blocked); sigaddset(&blocked, SIGINT); sigaddset(&blocked, SIGTERM); sigaddset(&blocked, SIGCHLD);
+        /* 處理信號；避免造成 child 回收和 PID 管理的 race condition */
         if (sigprocmask(SIG_BLOCK, &blocked, &previous) < 0) {
             LOG_ERROR("sigprocmask: %s", strerror(errno)); close(connection); exit_code = 1; break;
         }
         pid_t child = fork();
+        /* Child 處裡連線 */
         if (child == 0) {
             close(listener); close(signal_pipe[0]); close(signal_pipe[1]);
             if (install_signal(SIGCHLD, SIG_DFL) < 0 || install_signal(SIGINT, child_signal) < 0 ||
