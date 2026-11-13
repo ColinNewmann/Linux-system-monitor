@@ -1,0 +1,33 @@
+1794557188.666 pid=27185 role=parent INFO listening address=127.0.0.1 port=45131 timeout_ms=3000
+1794557188.686 pid=27185 role=parent INFO child_created child=27186
+1794557188.687 pid=27186 role=child INFO connected
+1794557188.687 pid=27186 role=child INFO disconnected
+1794557188.687 pid=27185 role=parent INFO child_reaped child=27186 exit=0
+1794557188.740 pid=27185 role=parent INFO child_created child=27188
+1794557188.740 pid=27188 role=child INFO connected
+1794557188.741 pid=27188 role=child INFO disconnected
+1794557188.741 pid=27185 role=parent INFO child_reaped child=27188 exit=0
+1794557188.743 pid=27185 role=parent INFO child_created child=27190
+1794557188.743 pid=27190 role=child INFO connected
+1794557188.744 pid=27190 role=child ERROR invalid_command
+1794557188.744 pid=27190 role=child INFO disconnected
+1794557188.744 pid=27185 role=parent INFO child_reaped child=27190 exit=0
+1794557188.747 pid=27185 role=parent INFO child_created child=27192
+1794557188.747 pid=27192 role=child INFO connected
+1794557188.748 pid=27192 role=child INFO disconnected
+1794557188.748 pid=27185 role=parent INFO child_reaped child=27192 exit=0
+1794557188.750 pid=27185 role=parent INFO child_created child=27194
+1794557188.751 pid=27194 role=child INFO connected
+1794557188.751 pid=27194 role=child ERROR invalid_command
+1794557188.751 pid=27194 role=child INFO disconnected
+1794557188.751 pid=27185 role=parent INFO child_reaped child=27194 exit=0
+1794557188.753 pid=27185 role=parent INFO child_created child=27196
+1794557188.753 pid=27196 role=child INFO connected
+1794557188.753 pid=27196 role=child INFO disconnected
+1794557188.753 pid=27185 role=parent INFO child_reaped child=27196 exit=0
+1794557188.755 pid=27185 role=parent INFO child_created child=27198
+1794557188.755 pid=27198 role=child INFO connected
+1794557188.755 pid=27198 role=child ERROR invalid_command
+1794557188.755 pid=27198 role=child INFO disconnected
+1794557188.755 pid=27185 role=parent INFO child_reaped child=27198 exit=0
+1794557188.755 pid=27185 role=parent INFO shutdown_complete active=0

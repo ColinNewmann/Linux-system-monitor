@@ -1,0 +1,3 @@
+1794556934.079 pid=25952 role=client INFO connected host=127.0.0.1 port=59049
+OK STATUS cpu_pct=0.63 sample_ms=200 total_kb=8019612 available_kb=5872840 used_kb=2146772 used_pct=26.77 uptime_seconds=7126.28
+1794556934.283 pid=25952 role=client INFO disconnected

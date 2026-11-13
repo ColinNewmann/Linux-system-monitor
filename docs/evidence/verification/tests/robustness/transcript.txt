@@ -1,0 +1,107 @@
+test=robustness utc=2026-11-13T08:02:17.491701+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_robustness.py --out build/protected-debug1 --baseline build/baseline-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+=== baseline: Test A invalid and oversized ===
+$ /home/p1yan/mid-project/build/baseline-debug1/bin/server --port 39427 --log-level 2 --timeout-ms 400 2> docs/evidence/verification/tests/robustness/server-baseline.log
+server_parent=26046 port=39427
+request=b'GET_MEM garbage\n' bytes=16 response='OK MEM total_kb=8019612 available_kb=5881464 used_kb=2138148 used_pct=26.66'
+request=b'GET_MEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' bytes=208 response='OK MEM total_kb=8019612 available_kb=5881464 used_kb=2138148 used_pct=26.66'
+=== baseline: Test B silent client ===
+observed_s=0.801 remaining_children=[26050]
+=== baseline: Test C deterministic shared send path ===
+$ /home/p1yan/mid-project/build/baseline-debug1/bin/disconnect_probe
+exit=-13
+=== baseline: Test C TCP reset integration ===
+TCP reset server log:
+1794556937.493 pid=26046 role=parent ERROR TEST BASELINE: protections intentionally disabled; loopback only
+1794556937.493 pid=26046 role=parent INFO listening address=127.0.0.1 port=39427 timeout_ms=400
+1794556937.493 pid=26046 role=parent DEBUG debug_enabled
+1794556937.495 pid=26046 role=parent INFO child_created child=26047
+1794556937.495 pid=26047 role=child INFO connected
+1794556937.495 pid=26047 role=child INFO disconnected
+1794556937.495 pid=26046 role=parent INFO child_reaped child=26047 exit=0
+1794556937.546 pid=26046 role=parent INFO child_created child=26048
+1794556937.546 pid=26048 role=child INFO connected
+1794556937.546 pid=26048 role=child DEBUG request_start mono_ms=7129552 command=GET_MEM garbage
+1794556937.546 pid=26048 role=child DEBUG request_end mono_ms=7129552 elapsed_ms=0
+1794556937.546 pid=26048 role=child INFO disconnected
+1794556937.547 pid=26046 role=parent INFO child_created child=26049
+1794556937.547 pid=26046 role=parent INFO child_reaped child=26048 exit=0
+1794556937.547 pid=26049 role=child INFO connected
+1794556937.547 pid=26049 role=child DEBUG request_start mono_ms=7129553 command=GET_MEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+1794556937.547 pid=26049 role=child DEBUG request_end mono_ms=7129553 elapsed_ms=0
+1794556937.547 pid=26049 role=child INFO disconnected
+1794556937.547 pid=26046 role=parent INFO child_reaped child=26049 exit=0
+1794556937.548 pid=26046 role=parent INFO child_created child=26050
+1794556937.548 pid=26050 role=child INFO connected
+1794556938.369 pid=26050 role=child INFO disconnected
+1794556938.370 pid=26046 role=parent INFO child_reaped child=26050 exit=0
+1794556938.395 pid=26046 role=parent INFO child_created child=26059
+1794556938.395 pid=26059 role=child INFO connected
+1794556938.395 pid=26059 role=child DEBUG request_start mono_ms=7130401 command=GET_CPU
+1794556938.596 pid=26059 role=child ERROR send_failed errno=104 message=Connection reset by peer
+1794556938.596 pid=26059 role=child INFO disconnected
+1794556938.597 pid=26046 role=parent INFO child_reaped child=26059 exit=0
+
+$ /home/p1yan/mid-project/build/baseline-debug1/bin/client --port 39427 --command GET_MEM
+OK MEM total_kb=8019612 available_kb=5881960 used_kb=2137652 used_pct=26.66
+1794556938.604 pid=26060 role=client INFO connected host=127.0.0.1 port=39427
+1794556938.606 pid=26060 role=client INFO disconnected
+exit=0
+server_exit=0 log=docs/evidence/verification/tests/robustness/server-baseline.log
+=== protected: Test A invalid and oversized ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 44615 --log-level 2 --timeout-ms 400 2> docs/evidence/verification/tests/robustness/server-protected.log
+server_parent=26062 port=44615
+request=b'GET_MEM garbage\n' bytes=16 response='ERR INVALID_REQUEST'
+request=b'GET_MEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' bytes=208 response='ERR REQUEST_TOO_LONG'
+=== protected: Test B silent client ===
+observed_s=0.801 remaining_children=[]
+=== protected: slow partial request cannot reset deadline ===
+=== protected: Test C deterministic shared send path ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/disconnect_probe
+result=-1 errno=32 EPIPE=32
+exit=0
+=== protected: Test C TCP reset integration ===
+TCP reset server log:
+1794556938.613 pid=26062 role=parent INFO listening address=127.0.0.1 port=44615 timeout_ms=400
+1794556938.613 pid=26062 role=parent DEBUG debug_enabled
+1794556938.633 pid=26062 role=parent INFO child_created child=26063
+1794556938.633 pid=26063 role=child INFO connected
+1794556938.634 pid=26063 role=child INFO disconnected
+1794556938.634 pid=26062 role=parent INFO child_reaped child=26063 exit=0
+1794556938.684 pid=26062 role=parent INFO child_created child=26064
+1794556938.684 pid=26064 role=child INFO connected
+1794556938.684 pid=26064 role=child DEBUG request_start mono_ms=7130690 command=GET_MEM garbage
+1794556938.685 pid=26064 role=child ERROR invalid_command
+1794556938.685 pid=26064 role=child DEBUG request_end mono_ms=7130691 elapsed_ms=1
+1794556938.685 pid=26064 role=child INFO disconnected
+1794556938.686 pid=26065 role=child INFO connected
+1794556938.686 pid=26062 role=parent INFO child_created child=26065
+1794556938.686 pid=26062 role=parent INFO child_reaped child=26064 exit=0
+1794556938.687 pid=26065 role=child ERROR request_rejected result=-3
+1794556938.687 pid=26065 role=child INFO disconnected
+1794556938.687 pid=26062 role=parent INFO child_reaped child=26065 exit=0
+1794556938.688 pid=26062 role=parent INFO child_created child=26066
+1794556938.688 pid=26066 role=child INFO connected
+1794556939.088 pid=26066 role=child ERROR request_rejected result=-2
+1794556939.089 pid=26066 role=child INFO disconnected
+1794556939.089 pid=26062 role=parent INFO child_reaped child=26066 exit=0
+1794556939.511 pid=26062 role=parent INFO child_created child=26070
+1794556939.511 pid=26070 role=child INFO connected
+1794556939.913 pid=26070 role=child ERROR request_rejected result=-2
+1794556939.913 pid=26070 role=child INFO disconnected
+1794556939.913 pid=26062 role=parent INFO child_reaped child=26070 exit=0
+1794556940.064 pid=26062 role=parent INFO child_created child=26072
+1794556940.064 pid=26072 role=child INFO connected
+1794556940.065 pid=26072 role=child DEBUG request_start mono_ms=7132071 command=GET_CPU
+1794556940.265 pid=26072 role=child ERROR send_failed errno=104 message=Connection reset by peer
+1794556940.265 pid=26072 role=child INFO disconnected
+1794556940.265 pid=26062 role=parent INFO child_reaped child=26072 exit=0
+
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 44615 --command GET_MEM
+OK MEM total_kb=8019612 available_kb=5888076 used_kb=2131536 used_pct=26.58
+1794556940.271 pid=26076 role=client INFO connected host=127.0.0.1 port=44615
+1794556940.272 pid=26076 role=client INFO disconnected
+exit=0
+server_exit=0 log=docs/evidence/verification/tests/robustness/server-protected.log
+PASS: robustness

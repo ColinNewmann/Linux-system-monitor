@@ -1,0 +1,20 @@
+============================================================
+Linux System Monitor | QUERIES
+UTC: 2026-11-13 08:06:24
+Full execution log: docs/evidence/demo/queries.log
+============================================================
+$ make DEBUG=1 VARIANT=protected all
+make: Nothing to be done for 'all'.
+$ build/protected-debug1/bin/server --port 8080 --log-level 2 --timeout-ms 30000
+Server PID=26942; port=8080; log=docs/evidence/demo/queries-server.log
+$ build/protected-debug1/bin/client --port 8080 --command GET_STATUS --log-level 0
+OK STATUS cpu_pct=3.09 sample_ms=201 total_kb=8019612 available_kb=5951532 used_kb=2068080 used_pct=25.79 uptime_seconds=7226.68
+$ build/protected-debug1/bin/client --port 8080 --command GET_CPU --log-level 0
+OK CPU usage_pct=1.86 sample_ms=200
+$ build/protected-debug1/bin/client --port 8080 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5954672 used_kb=2064940 used_pct=25.75
+$ build/protected-debug1/bin/client --port 8080 --command GET_UPTIME --log-level 0
+OK UPTIME seconds=7226.92
+$ kill -TERM 26942
+Server exited normally; its children have been reaped.
+PASS: queries (all commands completed successfully)

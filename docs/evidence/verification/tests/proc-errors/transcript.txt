@@ -1,0 +1,25 @@
+test=proc-errors utc=2026-11-13T08:02:22.081426+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_proc_errors.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+fault injection: fopen('/proc/stat') returns EACCES in test binary only
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server-fault --port 46543 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/proc-errors/server-cpu-failure.log
+server_parent=26274 port=46543
+request=b'GET_CPU\n' bytes=8 response='ERR SYSTEM_INFO'
+request=b'GET_STATUS\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5893184 used_kb=2126428 used_pct=26.52'
+server_exit=0 log=docs/evidence/verification/tests/proc-errors/server-cpu-failure.log
+fault injection: fopen('/proc/meminfo') returns EACCES in test binary only
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server-fault --port 49673 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/proc-errors/server-memory-failure.log
+server_parent=26277 port=49673
+request=b'GET_MEM\n' bytes=8 response='ERR SYSTEM_INFO'
+request=b'GET_STATUS\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_UPTIME\n' bytes=11 response='OK UPTIME seconds=7134.48'
+server_exit=0 log=docs/evidence/verification/tests/proc-errors/server-memory-failure.log
+fault injection: fopen('/proc/uptime') returns EACCES in test binary only
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server-fault --port 41079 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/proc-errors/server-uptime-failure.log
+server_parent=26286 port=41079
+request=b'GET_UPTIME\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_STATUS\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5891696 used_kb=2127916 used_pct=26.53'
+server_exit=0 log=docs/evidence/verification/tests/proc-errors/server-uptime-failure.log
+PASS: proc-errors

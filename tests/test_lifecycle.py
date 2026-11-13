@@ -30,7 +30,7 @@ def test(args, evidence):
             for sock in held:
                 sock.close()
         port = server.port
-    with Server(args.out, evidence, port=port) as restarted:
+    with Server(args.out, evidence, port=port, label='server-restart') as restarted:
         restarted.client('--command', 'GET_STATUS')
         print(f'restarted successfully on same port={port}')
 

@@ -51,6 +51,11 @@ int mon_recv_line(int fd, char *buffer, size_t wire_limit, int timeout_ms)
         if (ready != MON_LINE) return ready;
         unsigned char c;
         ssize_t n = recv(fd, &c, 1, MSG_DONTWAIT);
+        /* 
+        n > 0: success, return byte,
+        n = 0: EOF, return MON_EOF,
+        n < 0: error, return MON_IO_ERROR,
+        */
         if (n == 0) return used ? MON_TRUNCATED : MON_EOF;
         if (n < 0) {
             if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK) continue;

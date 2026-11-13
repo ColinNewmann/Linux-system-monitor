@@ -1,0 +1,21 @@
+============================================================
+Linux System Monitor | BUILD
+UTC: 2026-11-13 08:06:24
+Full execution log: docs/evidence/demo/build.log
+============================================================
+$ make clean
+rm -rf build
+$ make -j2 DEBUG=1 VARIANT=protected
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c server/server.c -o build/protected-debug1/server/server.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c server/system_info.c -o build/protected-debug1/server/system_info.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c shared/protocol.c -o build/protected-debug1/shared/protocol.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c shared/logging.c -o build/protected-debug1/shared/logging.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c client/client.c -o build/protected-debug1/client/client.o
+gcc -shared  -Wl,-soname,libmonitor.so -o build/protected-debug1/lib/libmonitor.so build/protected-debug1/shared/protocol.o build/protected-debug1/shared/logging.o
+gcc  -o build/protected-debug1/bin/server build/protected-debug1/server/server.o build/protected-debug1/server/system_info.o -Lbuild/protected-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+gcc  -o build/protected-debug1/bin/client build/protected-debug1/client/client.o -Lbuild/protected-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+$ ls -l build/protected-debug1/bin/client build/protected-debug1/bin/server build/protected-debug1/lib/libmonitor.so
+-rwxr-xr-x 1 p1yan p1yan 31656 Nov 13 16:06 build/protected-debug1/bin/client
+-rwxr-xr-x 1 p1yan p1yan 55864 Nov 13 16:06 build/protected-debug1/bin/server
+-rwxr-xr-x 1 p1yan p1yan 30912 Nov 13 16:06 build/protected-debug1/lib/libmonitor.so
+PASS: build (all commands completed successfully)

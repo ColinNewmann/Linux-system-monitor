@@ -1,0 +1,58 @@
+test=lifecycle utc=2026-11-13T08:02:21.464527+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_lifecycle.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 34249 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/lifecycle/server.log
+server_parent=26218 port=34249
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883336 used_kb=2136276 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883336 used_kb=2136276 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883336 used_kb=2136276 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883336 used_kb=2136276 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882552 used_kb=2137060 used_pct=26.65'
+parent=26218 fd_before=6 fd_after=6 children=[]
+shutdown with held children: [26250, 26251, 26252, 26253, 26254, 26255, 26256, 26257, 26258, 26259]
+child=26250 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462051]'}
+child=26251 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462052]'}
+child=26252 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462053]'}
+child=26253 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462054]'}
+child=26254 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462055]'}
+child=26255 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462056]'}
+child=26256 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462057]'}
+child=26257 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462058]'}
+child=26258 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462059]'}
+child=26259 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462060]'}
+server_exit=0 log=docs/evidence/verification/tests/lifecycle/server.log
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 34249 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/lifecycle/server-restart.log
+server_parent=26260 port=34249
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34249 --command GET_STATUS
+OK STATUS cpu_pct=2.50 sample_ms=200 total_kb=8019612 available_kb=5882124 used_kb=2137488 used_pct=26.65 uptime_seconds=7133.94
+1794556941.739 pid=26262 role=client INFO connected host=127.0.0.1 port=34249
+1794556941.941 pid=26262 role=client INFO disconnected
+exit=0
+restarted successfully on same port=34249
+server_exit=0 log=docs/evidence/verification/tests/lifecycle/server-restart.log
+PASS: lifecycle

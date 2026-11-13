@@ -1,0 +1,103 @@
+{
+  "clients": [
+    {
+      "client": 0,
+      "start": 7126.454898779,
+      "end": 7126.6859641,
+      "response": "OK CPU usage_pct=0.62 sample_ms=200"
+    },
+    {
+      "client": 1,
+      "start": 7126.455949152,
+      "end": 7126.686886732,
+      "response": "OK CPU usage_pct=1.85 sample_ms=200"
+    },
+    {
+      "client": 2,
+      "start": 7126.45502813,
+      "end": 7126.685839893,
+      "response": "OK CPU usage_pct=1.85 sample_ms=201"
+    },
+    {
+      "client": 3,
+      "start": 7126.455108449,
+      "end": 7126.687206703,
+      "response": "OK CPU usage_pct=1.85 sample_ms=200"
+    },
+    {
+      "client": 4,
+      "start": 7126.455170949,
+      "end": 7126.687048334,
+      "response": "OK CPU usage_pct=1.85 sample_ms=201"
+    },
+    {
+      "client": 5,
+      "start": 7126.455226211,
+      "end": 7126.687362157,
+      "response": "OK CPU usage_pct=1.85 sample_ms=201"
+    },
+    {
+      "client": 6,
+      "start": 7126.455637232,
+      "end": 7126.686027246,
+      "response": "OK CPU usage_pct=1.85 sample_ms=201"
+    },
+    {
+      "client": 7,
+      "start": 7126.455326345,
+      "end": 7126.686160924,
+      "response": "OK CPU usage_pct=1.85 sample_ms=201"
+    },
+    {
+      "client": 8,
+      "start": 7126.455282635,
+      "end": 7126.687250082,
+      "response": "OK CPU usage_pct=1.85 sample_ms=201"
+    },
+    {
+      "client": 9,
+      "start": 7126.454791477,
+      "end": 7126.686816507,
+      "response": "OK CPU usage_pct=1.85 sample_ms=201"
+    }
+  ],
+  "pids": [
+    25965,
+    25966,
+    25967,
+    25968,
+    25969,
+    25970,
+    25971,
+    25972,
+    25973,
+    25974
+  ],
+  "concurrent_s": 0.23257068000020809,
+  "sequential_s": 2.01422814200032,
+  "server_starts_ms": {
+    "25965": 7126455,
+    "25974": 7126455,
+    "25967": 7126455,
+    "25969": 7126455,
+    "25970": 7126455,
+    "25971": 7126455,
+    "25973": 7126455,
+    "25972": 7126455,
+    "25968": 7126455,
+    "25966": 7126456
+  },
+  "server_ends_ms": {
+    "25965": 7126656,
+    "25969": 7126656,
+    "25967": 7126656,
+    "25974": 7126656,
+    "25966": 7126656,
+    "25970": 7126656,
+    "25968": 7126656,
+    "25972": 7126656,
+    "25973": 7126656,
+    "25971": 7126656
+  },
+  "server_overlap_ms": 200
+}

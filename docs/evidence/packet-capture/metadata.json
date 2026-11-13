@@ -1,0 +1,11 @@
+{
+  "captured_date": "2026-11-08",
+  "timezone": "Asia/Taipei",
+  "interface": "lo",
+  "filter": "tcp port 8080",
+  "method": "manual tcpdump started and stopped by operator",
+  "pcap_sha256": "c98ab007c9ae1c34ff4601f5f0c9be49488f97376ec2dfb0dfa0e6e5b16146ee",
+  "original_directory": "docs/evidence/authorized-capture",
+  "original_server_log": "server-8080-13161166959003.log",
+  "note": "Raw traffic and server logs retain their original embedded paths."
+}

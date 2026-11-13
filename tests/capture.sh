@@ -5,8 +5,10 @@ cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
 port=${MONITOR_CAPTURE_PORT:-8080}
 case "$port" in ''|*[!0-9]*) echo 'Invalid capture port' >&2; exit 2;; esac
 if ((port < 1024 || port > 65535)); then echo 'Capture port must be 1024..65535' >&2; exit 2; fi
-stamp=$(date -u +%Y%m%dT%H%M%S)-$$
-evidence="docs/evidence/$stamp-capture"
+evidence=docs/evidence/demo/live-capture
+if [[ -e "$evidence/monitor.pcap" ]]; then
+    echo 'Move the previous demo/live-capture/monitor.pcap before starting another capture.' >&2; exit 2
+fi
 mkdir -p "$evidence"
 exec > >(tee "$evidence/transcript.txt") 2>&1
 set -x
@@ -27,7 +29,7 @@ capture_pid=$!
 for _ in {1..50}; do
     if ! kill -0 "$capture_pid" 2>/dev/null; then
         cat "$evidence/tcpdump.log"
-        echo 'BLOCKED: tcpdump could not start. Request capture permission; do not claim R4 passed.'
+        echo 'BLOCKED: tcpdump could not start; capture permission is required.'
         exit 77
     fi
     if grep -q 'listening on' "$evidence/tcpdump.log"; then break; fi

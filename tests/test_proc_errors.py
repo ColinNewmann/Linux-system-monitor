@@ -8,7 +8,9 @@ def test(args, evidence):
                                  ('/proc/uptime', 'GET_UPTIME', 'GET_MEM')]:
         print(f'fault injection: fopen({path!r}) returns EACCES in test binary only')
         env = dict(os.environ, MONITOR_FAIL_PROC=path)
-        with Server(args.out, evidence, binary='server-fault', env=env) as server:
+        label = {'/proc/stat': 'cpu', '/proc/meminfo': 'memory', '/proc/uptime': 'uptime'}[path]
+        with Server(args.out, evidence, binary='server-fault', env=env,
+                    label=f'server-{label}-failure') as server:
             with server.connect() as sock:
                 assert request(sock, (failed + '\n').encode()) == 'ERR SYSTEM_INFO\n'
                 assert request(sock, b'GET_STATUS\n') == 'ERR SYSTEM_INFO\n'

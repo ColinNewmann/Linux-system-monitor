@@ -5,7 +5,8 @@ def test(args, evidence):
     for debug in [0, 1]:
         for level in [0, 1, 2]:
             print(f'=== compile DEBUG={debug}, server runtime={level} ===')
-            with Server(f'build/protected-debug{debug}', evidence, level=level) as server:
+            with Server(f'build/protected-debug{debug}', evidence, level=level,
+                        label=f'server-debug{debug}-level{level}') as server:
                 # Client 與 Server 的層級獨立，逐一驗證每種組合。
                 for client_level in [0, 1, 2]:
                     result = server.client('--command', 'GET_MEM', '--log-level', str(client_level))

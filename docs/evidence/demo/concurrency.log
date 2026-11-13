@@ -1,0 +1,107 @@
+============================================================
+Linux System Monitor | CONCURRENCY
+UTC: 2026-11-13 08:06:25
+Full execution log: docs/evidence/demo/concurrency.log
+============================================================
+$ make DEBUG=1 VARIANT=protected test-concurrent
+python3 tests/test_concurrency.py --out build/protected-debug1
+test=concurrency utc=2026-11-13T08:06:25.228998+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_concurrency.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 41877 --log-level 2 --timeout-ms 10000 2> docs/evidence/demo/tests/concurrency/server.log
+server_parent=26988 port=41877
+10 simultaneous connections: parent=26988 child_pids=[26990, 26991, 26992, 26993, 26994, 26995, 26996, 26997, 26998, 26999]
+[
+  {
+    "client": 0,
+    "start": 7227.096983551,
+    "end": 7227.327479002,
+    "response": "OK CPU usage_pct=1.25 sample_ms=201"
+  },
+  {
+    "client": 1,
+    "start": 7227.096574854,
+    "end": 7227.327069911,
+    "response": "OK CPU usage_pct=1.25 sample_ms=201"
+  },
+  {
+    "client": 2,
+    "start": 7227.096337019,
+    "end": 7227.328778832,
+    "response": "OK CPU usage_pct=1.25 sample_ms=201"
+  },
+  {
+    "client": 3,
+    "start": 7227.096886013,
+    "end": 7227.327792379,
+    "response": "OK CPU usage_pct=1.25 sample_ms=200"
+  },
+  {
+    "client": 4,
+    "start": 7227.096419227,
+    "end": 7227.328399349,
+    "response": "OK CPU usage_pct=1.25 sample_ms=201"
+  },
+  {
+    "client": 5,
+    "start": 7227.096509449,
+    "end": 7227.328543979,
+    "response": "OK CPU usage_pct=1.25 sample_ms=200"
+  },
+  {
+    "client": 6,
+    "start": 7227.09665363,
+    "end": 7227.329022897,
+    "response": "OK CPU usage_pct=1.25 sample_ms=201"
+  },
+  {
+    "client": 7,
+    "start": 7227.097183483,
+    "end": 7227.32894359,
+    "response": "OK CPU usage_pct=1.25 sample_ms=200"
+  },
+  {
+    "client": 8,
+    "start": 7227.097051016,
+    "end": 7227.328726576,
+    "response": "OK CPU usage_pct=1.25 sample_ms=200"
+  },
+  {
+    "client": 9,
+    "start": 7227.096104131,
+    "end": 7227.325565909,
+    "response": "OK CPU usage_pct=1.25 sample_ms=201"
+  }
+]
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.63 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=3.73 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=7.41 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=1.24 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=1.27 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=1.24 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=1.24 sample_ms=200'
+concurrent_s=0.232919 sequential_s=2.014874 client_overlap_s=0.228382 server_overlap_ms=200
+all children reaped; parent still running: True
+server_exit=0 log=docs/evidence/demo/tests/concurrency/server.log
+PASS: concurrency
+evidence: docs/evidence/demo/tests/concurrency
+
+Verified result: PASS; evidence: docs/evidence/demo/tests/concurrency
+Child PIDs: 26990, 26991, 26992, 26993, 26994, 26995, 26996, 26997, 26998, 26999
+PID       Request start (ms)   Request end (ms)
+26990     7227097              7227298
+26991     7227096              7227297
+26992     7227096              7227297
+26993     7227097              7227297
+26994     7227096              7227297
+26995     7227097              7227297
+26996     7227096              7227297
+26997     7227097              7227297
+26998     7227097              7227298
+26999     7227096              7227297
+Concurrent: 0.232919 s; sequential: 2.014874 s
+Common overlap of all ten server intervals: 200 ms
+PASS: concurrency (all commands completed successfully)

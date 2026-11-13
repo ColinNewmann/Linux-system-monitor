@@ -1,0 +1,984 @@
+test=verification utc=2026-11-13T08:02:11.781548+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/verify.py
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+$ gcc --version
+gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+exit=0
+$ make --version
+GNU Make 4.4.1
+Built for x86_64-pc-linux-gnu
+Copyright (C) 1988-2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+exit=0
+$ make clean
+rm -rf build
+exit=0
+$ make -j2
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c server/server.c -o build/protected-debug1/server/server.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c server/system_info.c -o build/protected-debug1/server/system_info.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c shared/protocol.c -o build/protected-debug1/shared/protocol.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c shared/logging.c -o build/protected-debug1/shared/logging.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c client/client.c -o build/protected-debug1/client/client.o
+gcc -shared  -Wl,-soname,libmonitor.so -o build/protected-debug1/lib/libmonitor.so build/protected-debug1/shared/protocol.o build/protected-debug1/shared/logging.o
+gcc  -o build/protected-debug1/bin/server build/protected-debug1/server/server.o build/protected-debug1/server/system_info.o -Lbuild/protected-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+gcc  -o build/protected-debug1/bin/client build/protected-debug1/client/client.o -Lbuild/protected-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+exit=0
+$ make test-all
+python3 tests/test_basic.py --out build/protected-debug1
+test=basic utc=2026-11-13T08:02:12.281059+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_basic.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+$ ldd /home/p1yan/mid-project/build/protected-debug1/bin/client
+	linux-vdso.so.1 (0x00007eb9fb89e000)
+	libmonitor.so => /home/p1yan/mid-project/build/protected-debug1/bin/../lib/libmonitor.so (0x00007eb9fb88c000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x00007eb9fb600000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007eb9fb8a0000)
+exit=0
+$ ldd /home/p1yan/mid-project/build/protected-debug1/bin/server
+	linux-vdso.so.1 (0x000071fbb969e000)
+	libmonitor.so => /home/p1yan/mid-project/build/protected-debug1/bin/../lib/libmonitor.so (0x000071fbb968a000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x000071fbb9400000)
+	/lib64/ld-linux-x86-64.so.2 (0x000071fbb96a0000)
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 59049 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/basic/server.log
+server_parent=25918 port=59049
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 59049 --command GET_STATUS --log-level 2
+OK STATUS cpu_pct=3.70 sample_ms=200 total_kb=8019612 available_kb=5866760 used_kb=2152852 used_pct=26.84 uptime_seconds=7124.55
+1794556932.350 pid=25920 role=client INFO connected host=127.0.0.1 port=59049
+1794556932.350 pid=25920 role=client DEBUG sending command=GET_STATUS
+1794556932.551 pid=25920 role=client DEBUG response_received
+1794556932.551 pid=25920 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 59049 --command GET_CPU --log-level 2
+OK CPU usage_pct=0.00 sample_ms=201
+1794556932.553 pid=25922 role=client INFO connected host=127.0.0.1 port=59049
+1794556932.553 pid=25922 role=client DEBUG sending command=GET_CPU
+1794556932.755 pid=25922 role=client DEBUG response_received
+1794556932.755 pid=25922 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 59049 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5866804 used_kb=2152808 used_pct=26.84
+1794556932.759 pid=25924 role=client INFO connected host=127.0.0.1 port=59049
+1794556932.759 pid=25924 role=client DEBUG sending command=GET_MEM
+1794556932.760 pid=25924 role=client DEBUG response_received
+1794556932.760 pid=25924 role=client INFO disconnected
+exit=0
+/proc comparison total=8019612; available_snapshot=5866804; response=5866804
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 59049 --command GET_UPTIME --log-level 2
+OK UPTIME seconds=7124.77
+1794556932.763 pid=25926 role=client INFO connected host=127.0.0.1 port=59049
+1794556932.763 pid=25926 role=client DEBUG sending command=GET_UPTIME
+1794556932.764 pid=25926 role=client DEBUG response_received
+1794556932.764 pid=25926 role=client INFO disconnected
+exit=0
+request=b'MEM\n' bytes=4 response='OK MEM total_kb=8019612 available_kb=5866804 used_kb=2152808 used_pct=26.84'
+pipelined: ['OK UPTIME seconds=7124.82\n', 'OK MEM total_kb=8019612 available_kb=5866804 used_kb=2152808 used_pct=26.84\n']
+request=b'GET_MEM junk\n' bytes=13 response='ERR INVALID_REQUEST'
+request=b'\n' bytes=1 response='ERR INVALID_REQUEST'
+request=b'get_mem\n' bytes=8 response='ERR INVALID_REQUEST'
+request=b'GET_MEM\x00\n' bytes=9 response='ERR INVALID_REQUEST'
+request=b'GET_MEM\r\n' bytes=9 response='ERR INVALID_REQUEST'
+request=b'GET_MEM\x01\n' bytes=9 response='ERR INVALID_REQUEST'
+request=b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n' bytes=129 response='ERR REQUEST_TOO_LONG'
+request=b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n' bytes=128 response='ERR INVALID_REQUEST'
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 59049
+Connected to 127.0.0.1:59049
+
+LINUX SYSTEM MONITOR
+
+1. Show System Overview
+2. Show CPU Usage
+3. Show Memory Usage
+4. Show System Uptime
+5. Continuous Monitoring (Ctrl+C to exit)
+6. Exit
+> OK STATUS cpu_pct=5.56 sample_ms=200 total_kb=8019612 available_kb=5869032 used_kb=2150580 used_pct=26.82 uptime_seconds=7125.07
+
+LINUX SYSTEM MONITOR
+
+1. Show System Overview
+2. Show CPU Usage
+3. Show Memory Usage
+4. Show System Uptime
+5. Continuous Monitoring (Ctrl+C to exit)
+6. Exit
+> OK CPU usage_pct=0.63 sample_ms=201
+
+LINUX SYSTEM MONITOR
+
+1. Show System Overview
+2. Show CPU Usage
+3. Show Memory Usage
+4. Show System Uptime
+5. Continuous Monitoring (Ctrl+C to exit)
+6. Exit
+> OK MEM total_kb=8019612 available_kb=5869032 used_kb=2150580 used_pct=26.82
+
+LINUX SYSTEM MONITOR
+
+1. Show System Overview
+2. Show CPU Usage
+3. Show Memory Usage
+4. Show System Uptime
+5. Continuous Monitoring (Ctrl+C to exit)
+6. Exit
+> OK UPTIME seconds=7125.27
+
+LINUX SYSTEM MONITOR
+
+1. Show System Overview
+2. Show CPU Usage
+3. Show Memory Usage
+4. Show System Uptime
+5. Continuous Monitoring (Ctrl+C to exit)
+6. Exit
+> 
+1794556932.867 pid=25935 role=client INFO connected host=127.0.0.1 port=59049
+1794556933.271 pid=25935 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 59049 --monitor --count 3 --interval-ms 300
+OK STATUS cpu_pct=1.25 sample_ms=201 total_kb=8019612 available_kb=5868808 used_kb=2150804 used_pct=26.82 uptime_seconds=7125.48
+OK STATUS cpu_pct=0.62 sample_ms=200 total_kb=8019612 available_kb=5868808 used_kb=2150804 used_pct=26.82 uptime_seconds=7125.78
+OK STATUS cpu_pct=9.20 sample_ms=200 total_kb=8019612 available_kb=5872488 used_kb=2147124 used_pct=26.77 uptime_seconds=7126.08
+1794556933.273 pid=25943 role=client INFO connected host=127.0.0.1 port=59049
+1794556934.075 pid=25943 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 59049 --monitor --interval-ms 300 >  ctrl-c-client.stdout
+1794556934.079 pid=25952 role=client INFO connected host=127.0.0.1 port=59049
+OK STATUS cpu_pct=0.63 sample_ms=200 total_kb=8019612 available_kb=5872840 used_kb=2146772 used_pct=26.77 uptime_seconds=7126.28
+1794556934.283 pid=25952 role=client INFO disconnected
+
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 59049 --command BAD
+ERR INVALID_REQUEST
+1794556934.287 pid=25954 role=client INFO connected host=127.0.0.1 port=59049
+1794556934.288 pid=25954 role=client ERROR server response=ERR INVALID_REQUEST
+1794556934.288 pid=25954 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/basic/server.log
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 0
+Usage: /home/p1yan/mid-project/build/protected-debug1/bin/client [--host numeric-IP] [--port 1..65535] [--log-level 0..2]
+  [--command GET_STATUS|GET_CPU|GET_MEM|GET_UPTIME]
+  [--monitor] [--interval-ms 100..600000] [--count N] [--timeout-ms 100..600000]
+Without --command/--monitor, an interactive menu is shown.
+exit=2
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --log-level 3
+Usage: /home/p1yan/mid-project/build/protected-debug1/bin/client [--host numeric-IP] [--port 1..65535] [--log-level 0..2]
+  [--command GET_STATUS|GET_CPU|GET_MEM|GET_UPTIME]
+  [--monitor] [--interval-ms 100..600000] [--count N] [--timeout-ms 100..600000]
+Without --command/--monitor, an interactive menu is shown.
+exit=2
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --timeout-ms abc
+Usage: /home/p1yan/mid-project/build/protected-debug1/bin/client [--host numeric-IP] [--port 1..65535] [--log-level 0..2]
+  [--command GET_STATUS|GET_CPU|GET_MEM|GET_UPTIME]
+  [--monitor] [--interval-ms 100..600000] [--count N] [--timeout-ms 100..600000]
+Without --command/--monitor, an interactive menu is shown.
+exit=2
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 0
+Usage: /home/p1yan/mid-project/build/protected-debug1/bin/server [--bind IPv4] [--port 1..65535] [--log-level 0..2] [--timeout-ms 100..600000]
+exit=2
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --log-level 3
+Usage: /home/p1yan/mid-project/build/protected-debug1/bin/server [--bind IPv4] [--port 1..65535] [--log-level 0..2] [--timeout-ms 100..600000]
+exit=2
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --timeout-ms abc
+Usage: /home/p1yan/mid-project/build/protected-debug1/bin/server [--bind IPv4] [--port 1..65535] [--log-level 0..2] [--timeout-ms 100..600000]
+exit=2
+PASS: basic
+evidence: docs/evidence/verification/tests/basic
+python3 tests/test_concurrency.py --out build/protected-debug1
+test=concurrency utc=2026-11-13T08:02:14.367684+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_concurrency.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 42921 --log-level 2 --timeout-ms 10000 2> docs/evidence/verification/tests/concurrency/server.log
+server_parent=25963 port=42921
+10 simultaneous connections: parent=25963 child_pids=[25965, 25966, 25967, 25968, 25969, 25970, 25971, 25972, 25973, 25974]
+[
+  {
+    "client": 0,
+    "start": 7126.454898779,
+    "end": 7126.6859641,
+    "response": "OK CPU usage_pct=0.62 sample_ms=200"
+  },
+  {
+    "client": 1,
+    "start": 7126.455949152,
+    "end": 7126.686886732,
+    "response": "OK CPU usage_pct=1.85 sample_ms=200"
+  },
+  {
+    "client": 2,
+    "start": 7126.45502813,
+    "end": 7126.685839893,
+    "response": "OK CPU usage_pct=1.85 sample_ms=201"
+  },
+  {
+    "client": 3,
+    "start": 7126.455108449,
+    "end": 7126.687206703,
+    "response": "OK CPU usage_pct=1.85 sample_ms=200"
+  },
+  {
+    "client": 4,
+    "start": 7126.455170949,
+    "end": 7126.687048334,
+    "response": "OK CPU usage_pct=1.85 sample_ms=201"
+  },
+  {
+    "client": 5,
+    "start": 7126.455226211,
+    "end": 7126.687362157,
+    "response": "OK CPU usage_pct=1.85 sample_ms=201"
+  },
+  {
+    "client": 6,
+    "start": 7126.455637232,
+    "end": 7126.686027246,
+    "response": "OK CPU usage_pct=1.85 sample_ms=201"
+  },
+  {
+    "client": 7,
+    "start": 7126.455326345,
+    "end": 7126.686160924,
+    "response": "OK CPU usage_pct=1.85 sample_ms=201"
+  },
+  {
+    "client": 8,
+    "start": 7126.455282635,
+    "end": 7126.687250082,
+    "response": "OK CPU usage_pct=1.85 sample_ms=201"
+  },
+  {
+    "client": 9,
+    "start": 7126.454791477,
+    "end": 7126.686816507,
+    "response": "OK CPU usage_pct=1.85 sample_ms=201"
+  }
+]
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=2.50 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=2.48 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=1.25 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=1.24 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.00 sample_ms=201'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=7.45 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.00 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=200'
+request=b'GET_CPU\n' bytes=8 response='OK CPU usage_pct=0.62 sample_ms=201'
+concurrent_s=0.232571 sequential_s=2.014228 client_overlap_s=0.229891 server_overlap_ms=200
+all children reaped; parent still running: True
+server_exit=0 log=docs/evidence/verification/tests/concurrency/server.log
+PASS: concurrency
+evidence: docs/evidence/verification/tests/concurrency
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c tests/disconnect_probe.c -o build/protected-debug1/tests/disconnect_probe.o
+gcc  -o build/protected-debug1/bin/disconnect_probe build/protected-debug1/tests/disconnect_probe.o -Lbuild/protected-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+make baseline
+make[1]: Entering directory '/home/p1yan/mid-project'
+make VARIANT=baseline DEBUG=1 all build/baseline-debug1/bin/disconnect_probe
+make[2]: Entering directory '/home/p1yan/mid-project'
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -DMONITOR_TEST_BASELINE -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c server/server.c -o build/baseline-debug1/server/server.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -DMONITOR_TEST_BASELINE -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c server/system_info.c -o build/baseline-debug1/server/system_info.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -DMONITOR_TEST_BASELINE -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c shared/protocol.c -o build/baseline-debug1/shared/protocol.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -DMONITOR_TEST_BASELINE -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c shared/logging.c -o build/baseline-debug1/shared/logging.o
+gcc -shared  -Wl,-soname,libmonitor.so -o build/baseline-debug1/lib/libmonitor.so build/baseline-debug1/shared/protocol.o build/baseline-debug1/shared/logging.o
+gcc  -o build/baseline-debug1/bin/server build/baseline-debug1/server/server.o build/baseline-debug1/server/system_info.o -Lbuild/baseline-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -DMONITOR_TEST_BASELINE -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c client/client.c -o build/baseline-debug1/client/client.o
+gcc  -o build/baseline-debug1/bin/client build/baseline-debug1/client/client.o -Lbuild/baseline-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -DMONITOR_TEST_BASELINE -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c tests/disconnect_probe.c -o build/baseline-debug1/tests/disconnect_probe.o
+gcc  -o build/baseline-debug1/bin/disconnect_probe build/baseline-debug1/tests/disconnect_probe.o -Lbuild/baseline-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+make[2]: Leaving directory '/home/p1yan/mid-project'
+make[1]: Leaving directory '/home/p1yan/mid-project'
+python3 tests/test_robustness.py --out build/protected-debug1 --baseline build/baseline-debug1
+test=robustness utc=2026-11-13T08:02:17.491701+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_robustness.py --out build/protected-debug1 --baseline build/baseline-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+=== baseline: Test A invalid and oversized ===
+$ /home/p1yan/mid-project/build/baseline-debug1/bin/server --port 39427 --log-level 2 --timeout-ms 400 2> docs/evidence/verification/tests/robustness/server-baseline.log
+server_parent=26046 port=39427
+request=b'GET_MEM garbage\n' bytes=16 response='OK MEM total_kb=8019612 available_kb=5881464 used_kb=2138148 used_pct=26.66'
+request=b'GET_MEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' bytes=208 response='OK MEM total_kb=8019612 available_kb=5881464 used_kb=2138148 used_pct=26.66'
+=== baseline: Test B silent client ===
+observed_s=0.801 remaining_children=[26050]
+=== baseline: Test C deterministic shared send path ===
+$ /home/p1yan/mid-project/build/baseline-debug1/bin/disconnect_probe
+exit=-13
+=== baseline: Test C TCP reset integration ===
+TCP reset server log:
+1794556937.493 pid=26046 role=parent ERROR TEST BASELINE: protections intentionally disabled; loopback only
+1794556937.493 pid=26046 role=parent INFO listening address=127.0.0.1 port=39427 timeout_ms=400
+1794556937.493 pid=26046 role=parent DEBUG debug_enabled
+1794556937.495 pid=26046 role=parent INFO child_created child=26047
+1794556937.495 pid=26047 role=child INFO connected
+1794556937.495 pid=26047 role=child INFO disconnected
+1794556937.495 pid=26046 role=parent INFO child_reaped child=26047 exit=0
+1794556937.546 pid=26046 role=parent INFO child_created child=26048
+1794556937.546 pid=26048 role=child INFO connected
+1794556937.546 pid=26048 role=child DEBUG request_start mono_ms=7129552 command=GET_MEM garbage
+1794556937.546 pid=26048 role=child DEBUG request_end mono_ms=7129552 elapsed_ms=0
+1794556937.546 pid=26048 role=child INFO disconnected
+1794556937.547 pid=26046 role=parent INFO child_created child=26049
+1794556937.547 pid=26046 role=parent INFO child_reaped child=26048 exit=0
+1794556937.547 pid=26049 role=child INFO connected
+1794556937.547 pid=26049 role=child DEBUG request_start mono_ms=7129553 command=GET_MEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+1794556937.547 pid=26049 role=child DEBUG request_end mono_ms=7129553 elapsed_ms=0
+1794556937.547 pid=26049 role=child INFO disconnected
+1794556937.547 pid=26046 role=parent INFO child_reaped child=26049 exit=0
+1794556937.548 pid=26046 role=parent INFO child_created child=26050
+1794556937.548 pid=26050 role=child INFO connected
+1794556938.369 pid=26050 role=child INFO disconnected
+1794556938.370 pid=26046 role=parent INFO child_reaped child=26050 exit=0
+1794556938.395 pid=26046 role=parent INFO child_created child=26059
+1794556938.395 pid=26059 role=child INFO connected
+1794556938.395 pid=26059 role=child DEBUG request_start mono_ms=7130401 command=GET_CPU
+1794556938.596 pid=26059 role=child ERROR send_failed errno=104 message=Connection reset by peer
+1794556938.596 pid=26059 role=child INFO disconnected
+1794556938.597 pid=26046 role=parent INFO child_reaped child=26059 exit=0
+
+$ /home/p1yan/mid-project/build/baseline-debug1/bin/client --port 39427 --command GET_MEM
+OK MEM total_kb=8019612 available_kb=5881960 used_kb=2137652 used_pct=26.66
+1794556938.604 pid=26060 role=client INFO connected host=127.0.0.1 port=39427
+1794556938.606 pid=26060 role=client INFO disconnected
+exit=0
+server_exit=0 log=docs/evidence/verification/tests/robustness/server-baseline.log
+=== protected: Test A invalid and oversized ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 44615 --log-level 2 --timeout-ms 400 2> docs/evidence/verification/tests/robustness/server-protected.log
+server_parent=26062 port=44615
+request=b'GET_MEM garbage\n' bytes=16 response='ERR INVALID_REQUEST'
+request=b'GET_MEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' bytes=208 response='ERR REQUEST_TOO_LONG'
+=== protected: Test B silent client ===
+observed_s=0.801 remaining_children=[]
+=== protected: slow partial request cannot reset deadline ===
+=== protected: Test C deterministic shared send path ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/disconnect_probe
+result=-1 errno=32 EPIPE=32
+exit=0
+=== protected: Test C TCP reset integration ===
+TCP reset server log:
+1794556938.613 pid=26062 role=parent INFO listening address=127.0.0.1 port=44615 timeout_ms=400
+1794556938.613 pid=26062 role=parent DEBUG debug_enabled
+1794556938.633 pid=26062 role=parent INFO child_created child=26063
+1794556938.633 pid=26063 role=child INFO connected
+1794556938.634 pid=26063 role=child INFO disconnected
+1794556938.634 pid=26062 role=parent INFO child_reaped child=26063 exit=0
+1794556938.684 pid=26062 role=parent INFO child_created child=26064
+1794556938.684 pid=26064 role=child INFO connected
+1794556938.684 pid=26064 role=child DEBUG request_start mono_ms=7130690 command=GET_MEM garbage
+1794556938.685 pid=26064 role=child ERROR invalid_command
+1794556938.685 pid=26064 role=child DEBUG request_end mono_ms=7130691 elapsed_ms=1
+1794556938.685 pid=26064 role=child INFO disconnected
+1794556938.686 pid=26065 role=child INFO connected
+1794556938.686 pid=26062 role=parent INFO child_created child=26065
+1794556938.686 pid=26062 role=parent INFO child_reaped child=26064 exit=0
+1794556938.687 pid=26065 role=child ERROR request_rejected result=-3
+1794556938.687 pid=26065 role=child INFO disconnected
+1794556938.687 pid=26062 role=parent INFO child_reaped child=26065 exit=0
+1794556938.688 pid=26062 role=parent INFO child_created child=26066
+1794556938.688 pid=26066 role=child INFO connected
+1794556939.088 pid=26066 role=child ERROR request_rejected result=-2
+1794556939.089 pid=26066 role=child INFO disconnected
+1794556939.089 pid=26062 role=parent INFO child_reaped child=26066 exit=0
+1794556939.511 pid=26062 role=parent INFO child_created child=26070
+1794556939.511 pid=26070 role=child INFO connected
+1794556939.913 pid=26070 role=child ERROR request_rejected result=-2
+1794556939.913 pid=26070 role=child INFO disconnected
+1794556939.913 pid=26062 role=parent INFO child_reaped child=26070 exit=0
+1794556940.064 pid=26062 role=parent INFO child_created child=26072
+1794556940.064 pid=26072 role=child INFO connected
+1794556940.065 pid=26072 role=child DEBUG request_start mono_ms=7132071 command=GET_CPU
+1794556940.265 pid=26072 role=child ERROR send_failed errno=104 message=Connection reset by peer
+1794556940.265 pid=26072 role=child INFO disconnected
+1794556940.265 pid=26062 role=parent INFO child_reaped child=26072 exit=0
+
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 44615 --command GET_MEM
+OK MEM total_kb=8019612 available_kb=5888076 used_kb=2131536 used_pct=26.58
+1794556940.271 pid=26076 role=client INFO connected host=127.0.0.1 port=44615
+1794556940.272 pid=26076 role=client INFO disconnected
+exit=0
+server_exit=0 log=docs/evidence/verification/tests/robustness/server-protected.log
+PASS: robustness
+evidence: docs/evidence/verification/tests/robustness
+make DEBUG=1 all
+make[1]: Entering directory '/home/p1yan/mid-project'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/p1yan/mid-project'
+make DEBUG=0 all
+make[1]: Entering directory '/home/p1yan/mid-project'
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=0 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c server/server.c -o build/protected-debug0/server/server.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=0 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c server/system_info.c -o build/protected-debug0/server/system_info.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=0 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c shared/protocol.c -o build/protected-debug0/shared/protocol.o
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=0 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c shared/logging.c -o build/protected-debug0/shared/logging.o
+gcc -shared  -Wl,-soname,libmonitor.so -o build/protected-debug0/lib/libmonitor.so build/protected-debug0/shared/protocol.o build/protected-debug0/shared/logging.o
+gcc  -o build/protected-debug0/bin/server build/protected-debug0/server/server.o build/protected-debug0/server/system_info.o -Lbuild/protected-debug0/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=0 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c client/client.c -o build/protected-debug0/client/client.o
+gcc  -o build/protected-debug0/bin/client build/protected-debug0/client/client.o -Lbuild/protected-debug0/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+make[1]: Leaving directory '/home/p1yan/mid-project'
+python3 tests/test_logging.py
+test=logging utc=2026-11-13T08:02:20.877296+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_logging.py
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+=== compile DEBUG=0, server runtime=0 ===
+$ /home/p1yan/mid-project/build/protected-debug0/bin/server --port 45693 --log-level 0 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug0-level0.log
+server_parent=26117 port=45693
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5880552 used_kb=2139060 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556940.938 pid=26121 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5880748 used_kb=2138864 used_pct=26.67
+1794556940.940 pid=26123 role=client INFO connected host=127.0.0.1 port=45693
+1794556940.941 pid=26123 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556940.944 pid=26125 role=client INFO connected host=127.0.0.1 port=45693
+1794556940.944 pid=26125 role=client ERROR server response=ERR INVALID_REQUEST
+1794556940.944 pid=26125 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5880748 used_kb=2138864 used_pct=26.67
+1794556940.946 pid=26127 role=client INFO connected host=127.0.0.1 port=45693
+1794556940.946 pid=26127 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556940.948 pid=26129 role=client INFO connected host=127.0.0.1 port=45693
+1794556940.948 pid=26129 role=client ERROR server response=ERR INVALID_REQUEST
+1794556940.948 pid=26129 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug0-level0.log
+1794556940.938 pid=26122 role=child ERROR invalid_command
+1794556940.944 pid=26126 role=child ERROR invalid_command
+1794556940.948 pid=26130 role=child ERROR invalid_command
+
+=== compile DEBUG=0, server runtime=1 ===
+$ /home/p1yan/mid-project/build/protected-debug0/bin/server --port 55073 --log-level 1 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug0-level1.log
+server_parent=26131 port=55073
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5880744 used_kb=2138868 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.027 pid=26135 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5880744 used_kb=2138868 used_pct=26.67
+1794556941.029 pid=26137 role=client INFO connected host=127.0.0.1 port=55073
+1794556941.029 pid=26137 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.030 pid=26139 role=client INFO connected host=127.0.0.1 port=55073
+1794556941.031 pid=26139 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.031 pid=26139 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5880744 used_kb=2138868 used_pct=26.67
+1794556941.032 pid=26141 role=client INFO connected host=127.0.0.1 port=55073
+1794556941.032 pid=26141 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.033 pid=26143 role=client INFO connected host=127.0.0.1 port=55073
+1794556941.034 pid=26143 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.034 pid=26143 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug0-level1.log
+1794556940.952 pid=26131 role=parent INFO listening address=127.0.0.1 port=55073 timeout_ms=3000
+1794556940.972 pid=26131 role=parent INFO child_created child=26132
+1794556940.972 pid=26132 role=child INFO connected
+1794556940.972 pid=26132 role=child INFO disconnected
+1794556940.973 pid=26131 role=parent INFO child_reaped child=26132 exit=0
+1794556941.025 pid=26131 role=parent INFO child_created child=26134
+1794556941.025 pid=26134 role=child INFO connected
+1794556941.025 pid=26134 role=child INFO disconnected
+1794556941.025 pid=26131 role=parent INFO child_reaped child=26134 exit=0
+1794556941.027 pid=26131 role=parent INFO child_created child=26136
+1794556941.027 pid=26136 role=child INFO connected
+1794556941.027 pid=26136 role=child ERROR invalid_command
+1794556941.028 pid=26136 role=child INFO disconnected
+1794556941.028 pid=26131 role=parent INFO child_reaped child=26136 exit=0
+1794556941.029 pid=26131 role=parent INFO child_created child=26138
+1794556941.029 pid=26138 role=child INFO connected
+1794556941.029 pid=26138 role=child INFO disconnected
+1794556941.030 pid=26131 role=parent INFO child_reaped child=26138 exit=0
+1794556941.031 pid=26131 role=parent INFO child_created child=26140
+1794556941.031 pid=26140 role=child INFO connected
+1794556941.031 pid=26140 role=child ERROR invalid_command
+1794556941.031 pid=26140 role=child INFO disconnected
+1794556941.031 pid=26131 role=parent INFO child_reaped child=26140 exit=0
+1794556941.032 pid=26131 role=parent INFO child_created child=26142
+1794556941.032 pid=26142 role=child INFO connected
+1794556941.032 pid=26142 role=child INFO disconnected
+1794556941.032 pid=26131 role=parent INFO child_reaped child=26142 exit=0
+1794556941.034 pid=26131 role=parent INFO child_created child=26144
+1794556941.034 pid=26144 role=child INFO connected
+1794556941.034 pid=26144 role=child ERROR invalid_command
+1794556941.034 pid=26144 role=child INFO disconnected
+1794556941.034 pid=26131 role=parent INFO child_reaped child=26144 exit=0
+1794556941.034 pid=26131 role=parent INFO shutdown_complete active=0
+
+=== compile DEBUG=0, server runtime=2 ===
+$ /home/p1yan/mid-project/build/protected-debug0/bin/server --port 55865 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug0-level2.log
+server_parent=26145 port=55865
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5881264 used_kb=2138348 used_pct=26.66
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.117 pid=26149 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5881264 used_kb=2138348 used_pct=26.66
+1794556941.120 pid=26151 role=client INFO connected host=127.0.0.1 port=55865
+1794556941.121 pid=26151 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.123 pid=26153 role=client INFO connected host=127.0.0.1 port=55865
+1794556941.124 pid=26153 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.124 pid=26153 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5881264 used_kb=2138348 used_pct=26.66
+1794556941.126 pid=26155 role=client INFO connected host=127.0.0.1 port=55865
+1794556941.127 pid=26155 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.129 pid=26157 role=client INFO connected host=127.0.0.1 port=55865
+1794556941.129 pid=26157 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.129 pid=26157 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug0-level2.log
+1794556941.037 pid=26145 role=parent INFO listening address=127.0.0.1 port=55865 timeout_ms=3000
+1794556941.058 pid=26145 role=parent INFO child_created child=26146
+1794556941.058 pid=26146 role=child INFO connected
+1794556941.058 pid=26146 role=child INFO disconnected
+1794556941.058 pid=26145 role=parent INFO child_reaped child=26146 exit=0
+1794556941.112 pid=26145 role=parent INFO child_created child=26148
+1794556941.112 pid=26148 role=child INFO connected
+1794556941.113 pid=26148 role=child INFO disconnected
+1794556941.114 pid=26145 role=parent INFO child_reaped child=26148 exit=0
+1794556941.116 pid=26145 role=parent INFO child_created child=26150
+1794556941.117 pid=26150 role=child INFO connected
+1794556941.117 pid=26150 role=child ERROR invalid_command
+1794556941.117 pid=26150 role=child INFO disconnected
+1794556941.118 pid=26145 role=parent INFO child_reaped child=26150 exit=0
+1794556941.120 pid=26145 role=parent INFO child_created child=26152
+1794556941.121 pid=26152 role=child INFO connected
+1794556941.121 pid=26152 role=child INFO disconnected
+1794556941.122 pid=26145 role=parent INFO child_reaped child=26152 exit=0
+1794556941.123 pid=26145 role=parent INFO child_created child=26154
+1794556941.124 pid=26154 role=child INFO connected
+1794556941.124 pid=26154 role=child ERROR invalid_command
+1794556941.124 pid=26154 role=child INFO disconnected
+1794556941.124 pid=26145 role=parent INFO child_reaped child=26154 exit=0
+1794556941.126 pid=26145 role=parent INFO child_created child=26156
+1794556941.126 pid=26156 role=child INFO connected
+1794556941.127 pid=26156 role=child INFO disconnected
+1794556941.127 pid=26145 role=parent INFO child_reaped child=26156 exit=0
+1794556941.129 pid=26145 role=parent INFO child_created child=26158
+1794556941.129 pid=26158 role=child INFO connected
+1794556941.129 pid=26158 role=child ERROR invalid_command
+1794556941.129 pid=26158 role=child INFO disconnected
+1794556941.129 pid=26145 role=parent INFO child_reaped child=26158 exit=0
+1794556941.130 pid=26145 role=parent INFO shutdown_complete active=0
+
+=== compile DEBUG=1, server runtime=0 ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 36615 --log-level 0 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug1-level0.log
+server_parent=26159 port=36615
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5881072 used_kb=2138540 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.208 pid=26163 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5881072 used_kb=2138540 used_pct=26.67
+1794556941.210 pid=26165 role=client INFO connected host=127.0.0.1 port=36615
+1794556941.210 pid=26165 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.212 pid=26167 role=client INFO connected host=127.0.0.1 port=36615
+1794556941.212 pid=26167 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.212 pid=26167 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5881072 used_kb=2138540 used_pct=26.67
+1794556941.214 pid=26169 role=client INFO connected host=127.0.0.1 port=36615
+1794556941.214 pid=26169 role=client DEBUG sending command=GET_MEM
+1794556941.214 pid=26169 role=client DEBUG response_received
+1794556941.214 pid=26169 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.215 pid=26171 role=client INFO connected host=127.0.0.1 port=36615
+1794556941.215 pid=26171 role=client DEBUG sending command=BAD
+1794556941.216 pid=26171 role=client DEBUG response_received
+1794556941.216 pid=26171 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.216 pid=26171 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug1-level0.log
+1794556941.207 pid=26164 role=child ERROR invalid_command
+1794556941.212 pid=26168 role=child ERROR invalid_command
+1794556941.216 pid=26172 role=child ERROR invalid_command
+
+=== compile DEBUG=1, server runtime=1 ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 40995 --log-level 1 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug1-level1.log
+server_parent=26173 port=40995
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5881076 used_kb=2138536 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.299 pid=26177 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5881028 used_kb=2138584 used_pct=26.67
+1794556941.301 pid=26179 role=client INFO connected host=127.0.0.1 port=40995
+1794556941.301 pid=26179 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.303 pid=26181 role=client INFO connected host=127.0.0.1 port=40995
+1794556941.304 pid=26181 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.304 pid=26181 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5880804 used_kb=2138808 used_pct=26.67
+1794556941.306 pid=26183 role=client INFO connected host=127.0.0.1 port=40995
+1794556941.306 pid=26183 role=client DEBUG sending command=GET_MEM
+1794556941.306 pid=26183 role=client DEBUG response_received
+1794556941.306 pid=26183 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.308 pid=26185 role=client INFO connected host=127.0.0.1 port=40995
+1794556941.308 pid=26185 role=client DEBUG sending command=BAD
+1794556941.308 pid=26185 role=client DEBUG response_received
+1794556941.308 pid=26185 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.308 pid=26185 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug1-level1.log
+1794556941.219 pid=26173 role=parent INFO listening address=127.0.0.1 port=40995 timeout_ms=3000
+1794556941.240 pid=26173 role=parent INFO child_created child=26174
+1794556941.240 pid=26174 role=child INFO connected
+1794556941.240 pid=26174 role=child INFO disconnected
+1794556941.240 pid=26173 role=parent INFO child_reaped child=26174 exit=0
+1794556941.294 pid=26173 role=parent INFO child_created child=26176
+1794556941.294 pid=26176 role=child INFO connected
+1794556941.295 pid=26176 role=child INFO disconnected
+1794556941.295 pid=26173 role=parent INFO child_reaped child=26176 exit=0
+1794556941.298 pid=26173 role=parent INFO child_created child=26178
+1794556941.298 pid=26178 role=child INFO connected
+1794556941.299 pid=26178 role=child ERROR invalid_command
+1794556941.299 pid=26178 role=child INFO disconnected
+1794556941.299 pid=26173 role=parent INFO child_reaped child=26178 exit=0
+1794556941.301 pid=26173 role=parent INFO child_created child=26180
+1794556941.301 pid=26180 role=child INFO connected
+1794556941.302 pid=26180 role=child INFO disconnected
+1794556941.302 pid=26173 role=parent INFO child_reaped child=26180 exit=0
+1794556941.304 pid=26173 role=parent INFO child_created child=26182
+1794556941.304 pid=26182 role=child INFO connected
+1794556941.304 pid=26182 role=child ERROR invalid_command
+1794556941.304 pid=26182 role=child INFO disconnected
+1794556941.304 pid=26173 role=parent INFO child_reaped child=26182 exit=0
+1794556941.306 pid=26173 role=parent INFO child_created child=26184
+1794556941.306 pid=26184 role=child INFO connected
+1794556941.306 pid=26184 role=child INFO disconnected
+1794556941.306 pid=26173 role=parent INFO child_reaped child=26184 exit=0
+1794556941.308 pid=26173 role=parent INFO child_created child=26186
+1794556941.308 pid=26186 role=child INFO connected
+1794556941.308 pid=26186 role=child ERROR invalid_command
+1794556941.308 pid=26186 role=child INFO disconnected
+1794556941.308 pid=26173 role=parent INFO child_reaped child=26186 exit=0
+1794556941.309 pid=26173 role=parent INFO shutdown_complete active=0
+
+=== compile DEBUG=1, server runtime=2 ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 34873 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug1-level2.log
+server_parent=26187 port=34873
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5880988 used_kb=2138624 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.388 pid=26191 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5880988 used_kb=2138624 used_pct=26.67
+1794556941.390 pid=26193 role=client INFO connected host=127.0.0.1 port=34873
+1794556941.391 pid=26193 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.392 pid=26195 role=client INFO connected host=127.0.0.1 port=34873
+1794556941.393 pid=26195 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.393 pid=26195 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5880988 used_kb=2138624 used_pct=26.67
+1794556941.394 pid=26197 role=client INFO connected host=127.0.0.1 port=34873
+1794556941.394 pid=26197 role=client DEBUG sending command=GET_MEM
+1794556941.395 pid=26197 role=client DEBUG response_received
+1794556941.395 pid=26197 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.396 pid=26199 role=client INFO connected host=127.0.0.1 port=34873
+1794556941.396 pid=26199 role=client DEBUG sending command=BAD
+1794556941.396 pid=26199 role=client DEBUG response_received
+1794556941.396 pid=26199 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.396 pid=26199 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug1-level2.log
+1794556941.312 pid=26187 role=parent INFO listening address=127.0.0.1 port=34873 timeout_ms=3000
+1794556941.312 pid=26187 role=parent DEBUG debug_enabled
+1794556941.332 pid=26187 role=parent INFO child_created child=26188
+1794556941.332 pid=26188 role=child INFO connected
+1794556941.333 pid=26188 role=child INFO disconnected
+1794556941.333 pid=26187 role=parent INFO child_reaped child=26188 exit=0
+1794556941.385 pid=26187 role=parent INFO child_created child=26190
+1794556941.385 pid=26190 role=child INFO connected
+1794556941.385 pid=26190 role=child DEBUG request_start mono_ms=7133391 command=GET_MEM
+1794556941.385 pid=26190 role=child DEBUG request_end mono_ms=7133392 elapsed_ms=1
+1794556941.386 pid=26190 role=child INFO disconnected
+1794556941.386 pid=26187 role=parent INFO child_reaped child=26190 exit=0
+1794556941.388 pid=26187 role=parent INFO child_created child=26192
+1794556941.388 pid=26192 role=child INFO connected
+1794556941.388 pid=26192 role=child DEBUG request_start mono_ms=7133394 command=BAD
+1794556941.388 pid=26192 role=child ERROR invalid_command
+1794556941.388 pid=26192 role=child DEBUG request_end mono_ms=7133394 elapsed_ms=0
+1794556941.388 pid=26192 role=child INFO disconnected
+1794556941.388 pid=26187 role=parent INFO child_reaped child=26192 exit=0
+1794556941.390 pid=26187 role=parent INFO child_created child=26194
+1794556941.390 pid=26194 role=child INFO connected
+1794556941.390 pid=26194 role=child DEBUG request_start mono_ms=7133397 command=GET_MEM
+1794556941.391 pid=26194 role=child DEBUG request_end mono_ms=7133397 elapsed_ms=0
+1794556941.391 pid=26194 role=child INFO disconnected
+1794556941.391 pid=26187 role=parent INFO child_reaped child=26194 exit=0
+1794556941.393 pid=26187 role=parent INFO child_created child=26196
+1794556941.393 pid=26196 role=child INFO connected
+1794556941.393 pid=26196 role=child DEBUG request_start mono_ms=7133399 command=BAD
+1794556941.393 pid=26196 role=child ERROR invalid_command
+1794556941.393 pid=26196 role=child DEBUG request_end mono_ms=7133399 elapsed_ms=0
+1794556941.393 pid=26196 role=child INFO disconnected
+1794556941.393 pid=26187 role=parent INFO child_reaped child=26196 exit=0
+1794556941.394 pid=26187 role=parent INFO child_created child=26198
+1794556941.395 pid=26198 role=child INFO connected
+1794556941.395 pid=26198 role=child DEBUG request_start mono_ms=7133401 command=GET_MEM
+1794556941.395 pid=26198 role=child DEBUG request_end mono_ms=7133401 elapsed_ms=0
+1794556941.395 pid=26198 role=child INFO disconnected
+1794556941.395 pid=26187 role=parent INFO child_reaped child=26198 exit=0
+1794556941.396 pid=26187 role=parent INFO child_created child=26200
+1794556941.396 pid=26200 role=child INFO connected
+1794556941.396 pid=26200 role=child DEBUG request_start mono_ms=7133402 command=BAD
+1794556941.396 pid=26200 role=child ERROR invalid_command
+1794556941.396 pid=26200 role=child DEBUG request_end mono_ms=7133402 elapsed_ms=0
+1794556941.396 pid=26200 role=child INFO disconnected
+1794556941.396 pid=26187 role=parent INFO child_reaped child=26200 exit=0
+1794556941.397 pid=26187 role=parent INFO shutdown_complete active=0
+
+PASS: logging
+evidence: docs/evidence/verification/tests/logging
+ldd build/protected-debug1/bin/server
+	linux-vdso.so.1 (0x000079947a82c000)
+	libmonitor.so => /home/p1yan/mid-project/build/protected-debug1/bin/../lib/libmonitor.so (0x000079947a818000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x000079947a400000)
+	/lib64/ld-linux-x86-64.so.2 (0x000079947a82e000)
+ldd build/protected-debug1/bin/client
+	linux-vdso.so.1 (0x000076c7d5bdd000)
+	libmonitor.so => /home/p1yan/mid-project/build/protected-debug1/bin/../lib/libmonitor.so (0x000076c7d5bcb000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x000076c7d5800000)
+	/lib64/ld-linux-x86-64.so.2 (0x000076c7d5bdf000)
+readelf -d build/protected-debug1/bin/server
+
+Dynamic section at offset 0x4c48 contains 29 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libmonitor.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN/../lib]
+ 0x000000000000000c (INIT)               0x2000
+ 0x000000000000000d (FINI)               0x3ac0
+ 0x0000000000000019 (INIT_ARRAY)         0x5b50
+ 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
+ 0x000000000000001a (FINI_ARRAY)         0x5b58
+ 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
+ 0x000000006ffffef5 (GNU_HASH)           0x390
+ 0x0000000000000005 (STRTAB)             0x880
+ 0x0000000000000006 (SYMTAB)             0x3b8
+ 0x000000000000000a (STRSZ)              608 (bytes)
+ 0x000000000000000b (SYMENT)             24 (bytes)
+ 0x0000000000000015 (DEBUG)              0x0
+ 0x0000000000000003 (PLTGOT)             0x5e58
+ 0x0000000000000002 (PLTRELSZ)           984 (bytes)
+ 0x0000000000000014 (PLTREL)             RELA
+ 0x0000000000000017 (JMPREL)             0xdb8
+ 0x0000000000000007 (RELA)               0xba8
+ 0x0000000000000008 (RELASZ)             528 (bytes)
+ 0x0000000000000009 (RELAENT)            24 (bytes)
+ 0x000000000000001e (FLAGS)              BIND_NOW
+ 0x000000006ffffffb (FLAGS_1)            Flags: NOW PIE
+ 0x000000006ffffffe (VERNEED)            0xb48
+ 0x000000006fffffff (VERNEEDNUM)         1
+ 0x000000006ffffff0 (VERSYM)             0xae0
+ 0x000000006ffffff9 (RELACOUNT)          13
+ 0x0000000000000000 (NULL)               0x0
+readelf -d build/protected-debug1/bin/client
+
+Dynamic section at offset 0x2cc0 contains 29 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libmonitor.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN/../lib]
+ 0x000000000000000c (INIT)               0x1000
+ 0x000000000000000d (FINI)               0x1ba0
+ 0x0000000000000019 (INIT_ARRAY)         0x3b30
+ 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
+ 0x000000000000001a (FINI_ARRAY)         0x3b38
+ 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
+ 0x000000006ffffef5 (GNU_HASH)           0x390
+ 0x0000000000000005 (STRTAB)             0x6d0
+ 0x0000000000000006 (SYMTAB)             0x3b8
+ 0x000000000000000a (STRSZ)              465 (bytes)
+ 0x000000000000000b (SYMENT)             24 (bytes)
+ 0x0000000000000015 (DEBUG)              0x0
+ 0x0000000000000003 (PLTGOT)             0x3ed0
+ 0x0000000000000002 (PLTRELSZ)           528 (bytes)
+ 0x0000000000000014 (PLTREL)             RELA
+ 0x0000000000000017 (JMPREL)             0xbc0
+ 0x0000000000000007 (RELA)               0x938
+ 0x0000000000000008 (RELASZ)             648 (bytes)
+ 0x0000000000000009 (RELAENT)            24 (bytes)
+ 0x000000000000001e (FLAGS)              BIND_NOW
+ 0x000000006ffffffb (FLAGS_1)            Flags: NOW PIE
+ 0x000000006ffffffe (VERNEED)            0x8e8
+ 0x000000006fffffff (VERNEEDNUM)         1
+ 0x000000006ffffff0 (VERSYM)             0x8a2
+ 0x000000006ffffff9 (RELACOUNT)          17
+ 0x0000000000000000 (NULL)               0x0
+python3 tests/test_lifecycle.py --out build/protected-debug1
+test=lifecycle utc=2026-11-13T08:02:21.464527+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_lifecycle.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 34249 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/lifecycle/server.log
+server_parent=26218 port=34249
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883924 used_kb=2135688 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883728 used_kb=2135884 used_pct=26.63'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883336 used_kb=2136276 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883336 used_kb=2136276 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883336 used_kb=2136276 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883336 used_kb=2136276 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5883140 used_kb=2136472 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882944 used_kb=2136668 used_pct=26.64'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5882552 used_kb=2137060 used_pct=26.65'
+parent=26218 fd_before=6 fd_after=6 children=[]
+shutdown with held children: [26250, 26251, 26252, 26253, 26254, 26255, 26256, 26257, 26258, 26259]
+child=26250 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462051]'}
+child=26251 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462052]'}
+child=26252 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462053]'}
+child=26253 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462054]'}
+child=26254 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462055]'}
+child=26255 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462056]'}
+child=26256 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462057]'}
+child=26257 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462058]'}
+child=26258 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462059]'}
+child=26259 descriptors={'0': '/dev/null', '1': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '2': '/home/p1yan/mid-project/docs/evidence/verification/tests/lifecycle/server.log', '6': 'socket:[462060]'}
+server_exit=0 log=docs/evidence/verification/tests/lifecycle/server.log
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 34249 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/lifecycle/server-restart.log
+server_parent=26260 port=34249
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34249 --command GET_STATUS
+OK STATUS cpu_pct=2.50 sample_ms=200 total_kb=8019612 available_kb=5882124 used_kb=2137488 used_pct=26.65 uptime_seconds=7133.94
+1794556941.739 pid=26262 role=client INFO connected host=127.0.0.1 port=34249
+1794556941.941 pid=26262 role=client INFO disconnected
+exit=0
+restarted successfully on same port=34249
+server_exit=0 log=docs/evidence/verification/tests/lifecycle/server-restart.log
+PASS: lifecycle
+evidence: docs/evidence/verification/tests/lifecycle
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c tests/fault_proc.c -o build/protected-debug1/tests/fault_proc.o
+gcc  -Wl,--wrap=fopen -o build/protected-debug1/bin/server-fault build/protected-debug1/server/server.o build/protected-debug1/server/system_info.o build/protected-debug1/tests/fault_proc.o -Lbuild/protected-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+python3 tests/test_proc_errors.py --out build/protected-debug1
+test=proc-errors utc=2026-11-13T08:02:22.081426+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_proc_errors.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+fault injection: fopen('/proc/stat') returns EACCES in test binary only
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server-fault --port 46543 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/proc-errors/server-cpu-failure.log
+server_parent=26274 port=46543
+request=b'GET_CPU\n' bytes=8 response='ERR SYSTEM_INFO'
+request=b'GET_STATUS\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5893184 used_kb=2126428 used_pct=26.52'
+server_exit=0 log=docs/evidence/verification/tests/proc-errors/server-cpu-failure.log
+fault injection: fopen('/proc/meminfo') returns EACCES in test binary only
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server-fault --port 49673 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/proc-errors/server-memory-failure.log
+server_parent=26277 port=49673
+request=b'GET_MEM\n' bytes=8 response='ERR SYSTEM_INFO'
+request=b'GET_STATUS\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_UPTIME\n' bytes=11 response='OK UPTIME seconds=7134.48'
+server_exit=0 log=docs/evidence/verification/tests/proc-errors/server-memory-failure.log
+fault injection: fopen('/proc/uptime') returns EACCES in test binary only
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server-fault --port 41079 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/proc-errors/server-uptime-failure.log
+server_parent=26286 port=41079
+request=b'GET_UPTIME\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_STATUS\n' bytes=11 response='ERR SYSTEM_INFO'
+request=b'GET_MEM\n' bytes=8 response='OK MEM total_kb=8019612 available_kb=5891696 used_kb=2127916 used_pct=26.53'
+server_exit=0 log=docs/evidence/verification/tests/proc-errors/server-uptime-failure.log
+PASS: proc-errors
+evidence: docs/evidence/verification/tests/proc-errors
+gcc -D_POSIX_C_SOURCE=200809L -DMONITOR_DEBUG=1 -Ishared -Iserver -O2 -g -std=c11 -Wall -Wextra -Wpedantic -Wformat=2 -Wshadow -Wconversion -fPIC -MMD -MP -c tests/io_probe.c -o build/protected-debug1/tests/io_probe.o
+gcc  -o build/protected-debug1/bin/io_probe build/protected-debug1/tests/io_probe.o -Lbuild/protected-debug1/lib -lmonitor -Wl,-rpath,'$ORIGIN/../lib'
+python3 tests/test_io.py --out build/protected-debug1
+test=io utc=2026-11-13T08:02:23.029709+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_io.py --out build/protected-debug1
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+$ /home/p1yan/mid-project/build/protected-debug1/bin/io_probe
+partial writes: sent and verified 1048576 bytes; SO_SNDBUF requested=4096
+blocked writer: result=-2 elapsed_ms=100
+exit=0
+PASS: io
+evidence: docs/evidence/verification/tests/io
+exit=0
+$ gdb --nx --batch -ex 'set debuginfod enabled off' -ex 'break main' -ex run -ex bt -ex continue --args /home/p1yan/mid-project/build/protected-debug1/bin/client --help
+Breakpoint 1 at 0x1300: file client/client.c, line 95.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, main (argc=2, argv=0x7fffffffdad8) at client/client.c:95
+95	{
+#0  main (argc=2, argv=0x7fffffffdad8) at client/client.c:95
+[Inferior 1 (process 26311) exited normally]
+Usage: /home/p1yan/mid-project/build/protected-debug1/bin/client [--host numeric-IP] [--port 1..65535] [--log-level 0..2]
+  [--command GET_STATUS|GET_CPU|GET_MEM|GET_UPTIME]
+  [--monitor] [--interval-ms 100..600000] [--count N] [--timeout-ms 100..600000]
+Without --command/--monitor, an interactive menu is shown.
+exit=0
+PASS: verification

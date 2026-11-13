@@ -1,0 +1,91 @@
+1794557185.231 pid=26988 role=parent INFO listening address=127.0.0.1 port=41877 timeout_ms=10000
+1794557185.231 pid=26988 role=parent DEBUG debug_enabled
+1794557185.233 pid=26988 role=parent INFO child_created child=26989
+1794557185.233 pid=26989 role=child INFO connected
+1794557185.233 pid=26989 role=child INFO disconnected
+1794557185.233 pid=26988 role=parent INFO child_reaped child=26989 exit=0
+1794557185.284 pid=26988 role=parent INFO child_created child=26990
+1794557185.284 pid=26990 role=child INFO connected
+1794557185.284 pid=26988 role=parent INFO child_created child=26991
+1794557185.284 pid=26991 role=child INFO connected
+1794557185.285 pid=26988 role=parent INFO child_created child=26992
+1794557185.285 pid=26992 role=child INFO connected
+1794557185.285 pid=26988 role=parent INFO child_created child=26993
+1794557185.285 pid=26993 role=child INFO connected
+1794557185.285 pid=26988 role=parent INFO child_created child=26994
+1794557185.286 pid=26994 role=child INFO connected
+1794557185.286 pid=26988 role=parent INFO child_created child=26995
+1794557185.286 pid=26995 role=child INFO connected
+1794557185.286 pid=26988 role=parent INFO child_created child=26996
+1794557185.286 pid=26996 role=child INFO connected
+1794557185.286 pid=26988 role=parent INFO child_created child=26997
+1794557185.286 pid=26997 role=child INFO connected
+1794557185.287 pid=26988 role=parent INFO child_created child=26998
+1794557185.287 pid=26998 role=child INFO connected
+1794557185.287 pid=26988 role=parent INFO child_created child=26999
+1794557185.287 pid=26999 role=child INFO connected
+1794557185.310 pid=26999 role=child DEBUG request_start mono_ms=7227096 command=GET_CPU
+1794557185.310 pid=26992 role=child DEBUG request_start mono_ms=7227096 command=GET_CPU
+1794557185.310 pid=26994 role=child DEBUG request_start mono_ms=7227096 command=GET_CPU
+1794557185.310 pid=26991 role=child DEBUG request_start mono_ms=7227096 command=GET_CPU
+1794557185.310 pid=26996 role=child DEBUG request_start mono_ms=7227096 command=GET_CPU
+1794557185.311 pid=26993 role=child DEBUG request_start mono_ms=7227097 command=GET_CPU
+1794557185.311 pid=26998 role=child DEBUG request_start mono_ms=7227097 command=GET_CPU
+1794557185.311 pid=26995 role=child DEBUG request_start mono_ms=7227097 command=GET_CPU
+1794557185.311 pid=26997 role=child DEBUG request_start mono_ms=7227097 command=GET_CPU
+1794557185.311 pid=26990 role=child DEBUG request_start mono_ms=7227097 command=GET_CPU
+1794557185.511 pid=26992 role=child DEBUG request_end mono_ms=7227297 elapsed_ms=201
+1794557185.511 pid=26996 role=child DEBUG request_end mono_ms=7227297 elapsed_ms=201
+1794557185.511 pid=26991 role=child DEBUG request_end mono_ms=7227297 elapsed_ms=201
+1794557185.511 pid=26999 role=child DEBUG request_end mono_ms=7227297 elapsed_ms=201
+1794557185.511 pid=26995 role=child DEBUG request_end mono_ms=7227297 elapsed_ms=200
+1794557185.511 pid=26994 role=child DEBUG request_end mono_ms=7227297 elapsed_ms=201
+1794557185.511 pid=26997 role=child DEBUG request_end mono_ms=7227297 elapsed_ms=200
+1794557185.511 pid=26993 role=child DEBUG request_end mono_ms=7227297 elapsed_ms=200
+1794557185.512 pid=26998 role=child DEBUG request_end mono_ms=7227298 elapsed_ms=201
+1794557185.512 pid=26990 role=child DEBUG request_end mono_ms=7227298 elapsed_ms=201
+1794557185.545 pid=26992 role=child INFO disconnected
+1794557185.545 pid=26990 role=child INFO disconnected
+1794557185.545 pid=26991 role=child INFO disconnected
+1794557185.545 pid=26993 role=child INFO disconnected
+1794557185.545 pid=26994 role=child INFO disconnected
+1794557185.545 pid=26998 role=child INFO disconnected
+1794557185.545 pid=26999 role=child INFO disconnected
+1794557185.545 pid=26997 role=child INFO disconnected
+1794557185.545 pid=26995 role=child INFO disconnected
+1794557185.545 pid=26996 role=child INFO disconnected
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26990 exit=0
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26991 exit=0
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26992 exit=0
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26993 exit=0
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26994 exit=0
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26995 exit=0
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26996 exit=0
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26997 exit=0
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26998 exit=0
+1794557185.545 pid=26988 role=parent INFO child_reaped child=26999 exit=0
+1794557185.566 pid=26988 role=parent INFO child_created child=27010
+1794557185.566 pid=27010 role=child INFO connected
+1794557185.566 pid=27010 role=child DEBUG request_start mono_ms=7227352 command=GET_CPU
+1794557185.766 pid=27010 role=child DEBUG request_end mono_ms=7227552 elapsed_ms=200
+1794557185.767 pid=27010 role=child DEBUG request_start mono_ms=7227553 command=GET_CPU
+1794557185.968 pid=27010 role=child DEBUG request_end mono_ms=7227754 elapsed_ms=201
+1794557185.968 pid=27010 role=child DEBUG request_start mono_ms=7227754 command=GET_CPU
+1794557186.169 pid=27010 role=child DEBUG request_end mono_ms=7227955 elapsed_ms=201
+1794557186.170 pid=27010 role=child DEBUG request_start mono_ms=7227956 command=GET_CPU
+1794557186.371 pid=27010 role=child DEBUG request_end mono_ms=7228156 elapsed_ms=200
+1794557186.371 pid=27010 role=child DEBUG request_start mono_ms=7228157 command=GET_CPU
+1794557186.572 pid=27010 role=child DEBUG request_end mono_ms=7228358 elapsed_ms=201
+1794557186.573 pid=27010 role=child DEBUG request_start mono_ms=7228358 command=GET_CPU
+1794557186.773 pid=27010 role=child DEBUG request_end mono_ms=7228559 elapsed_ms=201
+1794557186.774 pid=27010 role=child DEBUG request_start mono_ms=7228560 command=GET_CPU
+1794557186.975 pid=27010 role=child DEBUG request_end mono_ms=7228761 elapsed_ms=201
+1794557186.976 pid=27010 role=child DEBUG request_start mono_ms=7228762 command=GET_CPU
+1794557187.176 pid=27010 role=child DEBUG request_end mono_ms=7228962 elapsed_ms=200
+1794557187.177 pid=27010 role=child DEBUG request_start mono_ms=7228963 command=GET_CPU
+1794557187.378 pid=27010 role=child DEBUG request_end mono_ms=7229164 elapsed_ms=201
+1794557187.379 pid=27010 role=child DEBUG request_start mono_ms=7229164 command=GET_CPU
+1794557187.579 pid=27010 role=child DEBUG request_end mono_ms=7229365 elapsed_ms=201
+1794557187.580 pid=27010 role=child INFO disconnected
+1794557187.581 pid=26988 role=parent INFO child_reaped child=27010 exit=0
+1794557187.582 pid=26988 role=parent INFO shutdown_complete active=0

@@ -1,98 +1,128 @@
-# 操作與展示指南
+# Reproduction and Screenshot Guide
 
-以下指令均在專案根目錄的 Linux／WSL 終端機執行。
+## Preparation
 
-## 建置與查詢
+Use a real Linux/WSL terminal window or the VS Code integrated terminal. Maximize it to approximately 120–150 columns and 40–50 rows. Screenshots should show the command, relevant output, and result inside the terminal window. Use the values from your own run in the report.
+
+From the project root:
 
 ```bash
-make clean
-make -j2
+bash scripts/demo.sh
+```
+
+Select a menu item, or run one step directly. Each step prints English headings and actual commands, then pauses at a screenshot point. Press Enter to continue; Ctrl+C exits and cleans up a server started by the script. No desktop images are generated automatically.
+
+```bash
+bash scripts/demo.sh concurrency
+bash scripts/demo.sh --no-pause all
+DEMO_PORT=18080 bash scripts/demo.sh queries
+```
+
+The script is a plain-text Bash program and needs no compilation. Invoking it with `bash` requires no executable permission. It calls the existing C programs, Make targets, and tests. Full step and server logs are saved under `docs/evidence/demo/` with names such as `build.log`, `queries.log`, and `queries-server.log`. Each step replaces its own previous log. Long test output is retained there; terminal summaries are derived from the test's own result and timing files.
+
+## Screenshot checklist
+
+Run each command below in Terminal A. Take the screenshot when the step pauses; use scrollback where indicated. Existing manually started servers must not occupy the demo port. The build step removes only generated `build/` artifacts.
+
+| Figure | Command | Include in the screenshot | Suggested caption |
+|---|---|---|---|
+| 1 | `bash scripts/demo.sh build` | Compiler/linker commands, three artifacts, PASS | Clean build of the client, server, and shared library. |
+| 2 | `bash scripts/demo.sh queries` | Four commands, actual OK responses, normal shutdown | System information returned by the TCP monitoring service. |
+| 3 | `bash scripts/demo.sh concurrency` | Ten PIDs, request intervals, overlap, concurrent/sequential times | Concurrent processing of ten clients by separate child processes. |
+| 4 | `bash scripts/demo.sh library` | Both ldd outputs, libmonitor.so, NEEDED and RUNPATH | Dynamic linkage of both executables to libmonitor.so. |
+| 5a | `bash scripts/demo.sh logging` | First pause: compile/runtime combinations and PASS | Verification of compile-time and runtime logging controls. |
+| 5b | Continue the logging step | Levels 0/1/2 and DEBUG=0 output | Client log output under different build and runtime settings. |
+| 6 | `bash scripts/demo.sh robustness` | Both variants: input rejection, remaining children, SIGPIPE/EPIPE | Baseline and protected behavior for malformed input, timeouts, and disconnections. |
+| 7a | `bash scripts/demo.sh capture` | First pause: original capture date, counts, query delays | Analysis of the recorded loopback TCP capture from 8 November 2026. |
+| 7b | Continue the capture step | GET_MEM handshake, payloads, ACKs, FIN (use scrollback) | TCP connection establishment, request/response exchange, and normal closure. |
+| 8 | `bash scripts/demo.sh lifecycle` | FD count, children held during shutdown, same-port restart | Child cleanup, stable descriptors, and successful server restart. |
+
+The capture menu item replays the real saved pcap; it does not create a new capture. Its counts and timing belong to the displayed recording date. For a new capture and a current tcpdump statistics screenshot, follow the next section.
+
+## New packet capture: two terminals
+
+Terminal A:
+
+```bash
+bash scripts/demo.sh --live-capture capture
+```
+
+The script prints an exact tcpdump command using an absolute path under `docs/evidence/demo/live-capture/`. Move any previous live pcap elsewhere before starting another capture. Copy that command to Terminal B. It has this form:
+
+```bash
+sudo tcpdump -Z "$(id -un)" -i lo -nn -s 0 -U \
+  -w /absolute/project/path/docs/evidence/demo/live-capture/monitor.pcap 'tcp port 8080'
+```
+
+1. In Terminal B, enter any sudo password locally and wait for `listening on lo`.
+2. In Terminal A, press Enter. The script starts its server, sends all four queries, and stops the server.
+3. When prompted, press Ctrl+C in Terminal B. Photograph that terminal, including the tcpdump command and captured/received/dropped statistics.
+4. Return to Terminal A and press Enter. The script decodes the new pcap, checks that all four request/response pairs are present, and displays payload packets. Photograph this output as well.
+
+Suggested caption: *Live loopback packet capture of the monitoring protocol and tcpdump capture statistics.*
+
+The script never invokes sudo itself. Stopping Terminal A does not stop the user-owned tcpdump in Terminal B; stop that capture explicitly with Ctrl+C. Live mode requires an interactive terminal and cannot be combined with `--no-pause` or `all`.
+
+## Optional interface and monitoring screenshot
+
+Terminal A:
+
+```bash
+make
 build/protected-debug1/bin/server --port 8080 --log-level 2 --timeout-ms 30000
 ```
 
-另一個終端機執行：
+Terminal B:
 
 ```bash
-build/protected-debug1/bin/client --command GET_STATUS
-build/protected-debug1/bin/client --command GET_CPU
-build/protected-debug1/bin/client --command GET_MEM
-build/protected-debug1/bin/client --command GET_UPTIME
-build/protected-debug1/bin/client --monitor --interval-ms 2000
+build/protected-debug1/bin/client
 ```
 
-省略 `--command` 與 `--monitor` 可開啟選單。Ctrl+C 結束監控或停止 Server。
-
-## 功能驗證
-
-| 指令 | 驗證內容 |
-|---|---|
-| `make test` | 查詢、選單、監控與協定邊界 |
-| `make test-concurrent` | 十條連線、Child PID、處理區間與循序耗時比較 |
-| `make test-linkage` | 兩端的 libmonitor.so、DT_NEEDED 與 RUNPATH |
-| `make test-logging` | 兩種編譯設定與兩端三種日誌層級 |
-| `make test-robustness` | 非法／超長輸入、逾時、SIGPIPE 與 TCP reset |
-| `make test-lifecycle` | FD 穩定性、Child 回收、關機與同埠重啟 |
-| `make test-proc-errors` | 系統資料讀取失敗的錯誤回應 |
-| `make test-io` | Partial write 與寫入期限 |
-
-測試會自行啟動臨時埠 Server，紀錄保存於 `docs/evidence/`。完整 clean build、測試與 GDB 檢查可使用 `python3 tests/verify.py`。
-
-並行測試以 barrier 同步十筆 CPU 查詢，輸出 Child PID、起訖時間與 `timings.json`。防護比較的 Baseline 與 Protected 分開建置；SIGPIPE probe 在 Python 中以 `exit=-13` 表示，TCP reset 則依實際 errno 記錄。
-
-## 日誌展示
-
-Server 保持執行時，比較 Client 輸出：
+Select queries 1–4, then continuous monitoring (5), or use:
 
 ```bash
-make DEBUG=0
-build/protected-debug1/bin/client --command GET_MEM --log-level 0
-build/protected-debug1/bin/client --command GET_MEM --log-level 1
-build/protected-debug1/bin/client --command GET_MEM --log-level 2
-build/protected-debug0/bin/client --command GET_MEM --log-level 2
+build/protected-debug1/bin/client --monitor --interval-ms 2000 --count 3
 ```
 
-DEBUG=0 的程式只輸出 ERROR／INFO；Server 的層級可獨立設定。
+Photograph the menu or repeated status updates. Stop the manual server with Ctrl+C after use. Suggested caption: *Interactive queries and periodic client-side monitoring.*
 
-## 封包擷取
-
-自動擷取需先停止占用 8080 的 Server：
+## Tests and evidence
 
 ```bash
-make capture
+make test-all
+python3 tests/verify.py
 ```
 
-需要 sudo 時，先在同一互動終端機完成驗證，再執行 `MONITOR_CAPTURE_SUDO=1 make capture`。腳本使用 `sudo -n`；可設定 `MONITOR_CAPTURE_PORT=18080` 改用其他埠。
+The second command performs a clean build and GDB smoke check as well. Individual targets include `test`, `test-concurrent`, `test-linkage`, `test-logging`, `test-robustness`, `test-lifecycle`, `test-proc-errors`, and `test-io`.
 
-手動擷取可在第三個終端機執行：
-
-```bash
-mkdir -p docs/evidence/manual-capture
-sudo tcpdump -Z "$(id -un)" -i lo -nn -s 0 -U \
-  -w docs/evidence/manual-capture/monitor.pcap 'tcp port 8080'
-```
-
-啟動 Server 並執行查詢後，以 Ctrl+C 停止 tcpdump、保存統計，再離線解碼：
-
-```bash
-TZ=UTC tcpdump -nn -tttt -A -r docs/evidence/manual-capture/monitor.pcap
-```
-
-觀察三向交握、查詢與回應 payload，以及 FIN／ACK。TCP segment 與應用訊息不保證一對一。既有實測見 [封包分析](evidence/authorized-capture/packet_analysis.md)。
-
-## GDB
-
-```bash
-gdb --nx build/protected-debug1/bin/server
-```
+The evidence layout is fixed:
 
 ```text
-set args --port 18080 --log-level 2
-set follow-fork-mode child
-set detach-on-fork on
-break serve_client
-run
+docs/evidence/
+├── verification/
+│   ├── transcript.txt          # Complete clean-build and test run
+│   ├── result.json             # Status and UTC start/end times
+│   ├── source-sha256.json
+│   └── tests/                  # basic, concurrency, logging, robustness, ...
+├── demo/
+│   ├── build.log               # One log per demonstration step
+│   ├── queries.log
+│   ├── queries-server.log
+│   ├── script-checks.log       # Interactive and error-path checks
+│   └── tests/                  # Detailed results used by demo summaries
+└── packet-capture/
+    ├── monitor.pcap            # Original capture, preserved across test runs
+    ├── packets.txt
+    ├── packets-hex.txt
+    ├── analysis.json
+    ├── traffic.txt
+    ├── server.log
+    ├── tcpdump-stats.txt
+    └── metadata.json
 ```
 
-另一個終端機執行 `build/protected-debug1/bin/client --port 18080 --command GET_MEM`，於 GDB 查看 `bt` 並 `continue`。結束後停止已 detach 的 Parent。
+Test folders contain `transcript.txt`, `result.json`, and descriptive server logs such as `server-baseline.log` or `server-debug1-level2.log`. Concurrency adds `timings.json`. The optional live pcap is stored under `demo/live-capture/`; its command, server, and decoded-output logs remain in `demo/`. The analyzer is `scripts/analyze_capture.py`, outside the evidence data.
 
-埠衝突時改用其他埠；互動等待逾時則提高 Server 的 `--timeout-ms`。測試及擷取需在允許 socket 與相應擷取權限的環境執行。
+Each test or demo keeps only its latest attempt, including failures. Run these workflows sequentially. A full `python3 tests/verify.py` replaces `verification/`; demo tests are isolated under `demo/tests/`. Copy any screenshots or logs you want to retain before rerunning, and update report measurements to match the selected run. The [project report](report.md) links to these fixed locations.
+
+If a port is busy, stop your manual server or choose `DEMO_PORT=18080`. If socket or capture permissions are denied, use an appropriate WSL terminal. Increase the server timeout for longer interactive idle periods. A failed demo preserves its log and exits without printing a success result.

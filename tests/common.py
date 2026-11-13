@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import shlex
 import signal
+import shutil
 import socket
 import subprocess
 import sys
@@ -86,13 +87,14 @@ def fields(response):
 
 class Server:
     def __init__(self, out, evidence, *, level=2, timeout_ms=3000, port=None,
-                 binary='server', env=None):
+                 binary='server', env=None, label='server'):
         self.out = ROOT / out
         self.evidence = evidence
         self.level = level
         self.timeout_ms = timeout_ms
         self.binary = binary
         self.env = env
+        self.label = label
         if port is None:
             with socket.socket() as temporary:
                 temporary.bind(('127.0.0.1', 0))
@@ -101,7 +103,12 @@ class Server:
         self.process = None
 
     def __enter__(self):
-        self.log_path = self.evidence / f'server-{self.port}-{time.monotonic_ns()}.log'
+        self.log_path = self.evidence / f'{self.label}.log'
+        # 同一測試若啟動多個未命名的 Server，使用短序號避免覆寫。
+        sequence = 2
+        while self.log_path.exists():
+            self.log_path = self.evidence / f'{self.label}-{sequence:02d}.log'
+            sequence += 1
         self.log_file = self.log_path.open('w')
         args = [str(self.out / 'bin' / self.binary), '--port', str(self.port),
                 '--log-level', str(self.level), '--timeout-ms', str(self.timeout_ms)]
@@ -160,8 +167,15 @@ def run_test(name, function, extra_arguments=None):
     if extra_arguments:
         extra_arguments(parser)
     args = parser.parse_args()
-    stamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')
-    evidence = ROOT / 'docs/evidence' / f'{stamp}-{name}'
+    stamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    base = (ROOT / 'docs/evidence').resolve()
+    destination = Path(os.environ.get('MONITOR_EVIDENCE_ROOT', 'docs/evidence/verification'))
+    destination = (ROOT / destination).resolve()
+    if destination == base or not destination.is_relative_to(base):
+        parser.error('MONITOR_EVIDENCE_ROOT must be a subdirectory of docs/evidence')
+    evidence = destination if name == 'verification' else destination / 'tests' / name
+    if evidence.exists():
+        shutil.rmtree(evidence)
     evidence.mkdir(parents=True)
     code = 0
     with (evidence / 'transcript.txt').open('w') as transcript:
@@ -181,6 +195,7 @@ def run_test(name, function, extra_arguments=None):
                 traceback.print_exc()
             print(f'{status}: {name}')
     (evidence / 'result.json').write_text(json.dumps({'test': name, 'status': status,
-                                                    'exit_code': code, 'utc': stamp}, indent=2) + '\n')
+                                                    'exit_code': code, 'started_utc': stamp,
+                                                    'finished_utc': datetime.datetime.now(datetime.timezone.utc).isoformat()}, indent=2) + '\n')
     print('evidence:', evidence.relative_to(ROOT))
     raise SystemExit(code)

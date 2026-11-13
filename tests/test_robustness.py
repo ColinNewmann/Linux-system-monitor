@@ -8,7 +8,7 @@ from common import ROOT, Server, child_pids, command, receive, request, run_test
 def test(args, evidence):
     for variant, out in [('baseline', args.baseline), ('protected', args.out)]:
         print(f'=== {variant}: Test A invalid and oversized ===')
-        with Server(out, evidence, timeout_ms=400) as server:
+        with Server(out, evidence, timeout_ms=400, label=f'server-{variant}') as server:
             for payload in [b'GET_MEM garbage\n', b'GET_MEM' + b'A' * 200 + b'\n']:
                 with server.connect() as sock:
                     result = request(sock, payload)

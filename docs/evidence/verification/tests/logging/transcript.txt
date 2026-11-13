@@ -1,0 +1,371 @@
+test=logging utc=2026-11-13T08:02:20.877296+00:00 cwd=/home/p1yan/mid-project
+$ python3 tests/test_logging.py
+uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.58.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026', machine='x86_64')
+=== compile DEBUG=0, server runtime=0 ===
+$ /home/p1yan/mid-project/build/protected-debug0/bin/server --port 45693 --log-level 0 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug0-level0.log
+server_parent=26117 port=45693
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5880552 used_kb=2139060 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556940.938 pid=26121 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5880748 used_kb=2138864 used_pct=26.67
+1794556940.940 pid=26123 role=client INFO connected host=127.0.0.1 port=45693
+1794556940.941 pid=26123 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556940.944 pid=26125 role=client INFO connected host=127.0.0.1 port=45693
+1794556940.944 pid=26125 role=client ERROR server response=ERR INVALID_REQUEST
+1794556940.944 pid=26125 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5880748 used_kb=2138864 used_pct=26.67
+1794556940.946 pid=26127 role=client INFO connected host=127.0.0.1 port=45693
+1794556940.946 pid=26127 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 45693 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556940.948 pid=26129 role=client INFO connected host=127.0.0.1 port=45693
+1794556940.948 pid=26129 role=client ERROR server response=ERR INVALID_REQUEST
+1794556940.948 pid=26129 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug0-level0.log
+1794556940.938 pid=26122 role=child ERROR invalid_command
+1794556940.944 pid=26126 role=child ERROR invalid_command
+1794556940.948 pid=26130 role=child ERROR invalid_command
+
+=== compile DEBUG=0, server runtime=1 ===
+$ /home/p1yan/mid-project/build/protected-debug0/bin/server --port 55073 --log-level 1 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug0-level1.log
+server_parent=26131 port=55073
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5880744 used_kb=2138868 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.027 pid=26135 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5880744 used_kb=2138868 used_pct=26.67
+1794556941.029 pid=26137 role=client INFO connected host=127.0.0.1 port=55073
+1794556941.029 pid=26137 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.030 pid=26139 role=client INFO connected host=127.0.0.1 port=55073
+1794556941.031 pid=26139 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.031 pid=26139 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5880744 used_kb=2138868 used_pct=26.67
+1794556941.032 pid=26141 role=client INFO connected host=127.0.0.1 port=55073
+1794556941.032 pid=26141 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55073 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.033 pid=26143 role=client INFO connected host=127.0.0.1 port=55073
+1794556941.034 pid=26143 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.034 pid=26143 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug0-level1.log
+1794556940.952 pid=26131 role=parent INFO listening address=127.0.0.1 port=55073 timeout_ms=3000
+1794556940.972 pid=26131 role=parent INFO child_created child=26132
+1794556940.972 pid=26132 role=child INFO connected
+1794556940.972 pid=26132 role=child INFO disconnected
+1794556940.973 pid=26131 role=parent INFO child_reaped child=26132 exit=0
+1794556941.025 pid=26131 role=parent INFO child_created child=26134
+1794556941.025 pid=26134 role=child INFO connected
+1794556941.025 pid=26134 role=child INFO disconnected
+1794556941.025 pid=26131 role=parent INFO child_reaped child=26134 exit=0
+1794556941.027 pid=26131 role=parent INFO child_created child=26136
+1794556941.027 pid=26136 role=child INFO connected
+1794556941.027 pid=26136 role=child ERROR invalid_command
+1794556941.028 pid=26136 role=child INFO disconnected
+1794556941.028 pid=26131 role=parent INFO child_reaped child=26136 exit=0
+1794556941.029 pid=26131 role=parent INFO child_created child=26138
+1794556941.029 pid=26138 role=child INFO connected
+1794556941.029 pid=26138 role=child INFO disconnected
+1794556941.030 pid=26131 role=parent INFO child_reaped child=26138 exit=0
+1794556941.031 pid=26131 role=parent INFO child_created child=26140
+1794556941.031 pid=26140 role=child INFO connected
+1794556941.031 pid=26140 role=child ERROR invalid_command
+1794556941.031 pid=26140 role=child INFO disconnected
+1794556941.031 pid=26131 role=parent INFO child_reaped child=26140 exit=0
+1794556941.032 pid=26131 role=parent INFO child_created child=26142
+1794556941.032 pid=26142 role=child INFO connected
+1794556941.032 pid=26142 role=child INFO disconnected
+1794556941.032 pid=26131 role=parent INFO child_reaped child=26142 exit=0
+1794556941.034 pid=26131 role=parent INFO child_created child=26144
+1794556941.034 pid=26144 role=child INFO connected
+1794556941.034 pid=26144 role=child ERROR invalid_command
+1794556941.034 pid=26144 role=child INFO disconnected
+1794556941.034 pid=26131 role=parent INFO child_reaped child=26144 exit=0
+1794556941.034 pid=26131 role=parent INFO shutdown_complete active=0
+
+=== compile DEBUG=0, server runtime=2 ===
+$ /home/p1yan/mid-project/build/protected-debug0/bin/server --port 55865 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug0-level2.log
+server_parent=26145 port=55865
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5881264 used_kb=2138348 used_pct=26.66
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.117 pid=26149 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5881264 used_kb=2138348 used_pct=26.66
+1794556941.120 pid=26151 role=client INFO connected host=127.0.0.1 port=55865
+1794556941.121 pid=26151 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.123 pid=26153 role=client INFO connected host=127.0.0.1 port=55865
+1794556941.124 pid=26153 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.124 pid=26153 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5881264 used_kb=2138348 used_pct=26.66
+1794556941.126 pid=26155 role=client INFO connected host=127.0.0.1 port=55865
+1794556941.127 pid=26155 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug0/bin/client --port 55865 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.129 pid=26157 role=client INFO connected host=127.0.0.1 port=55865
+1794556941.129 pid=26157 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.129 pid=26157 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug0-level2.log
+1794556941.037 pid=26145 role=parent INFO listening address=127.0.0.1 port=55865 timeout_ms=3000
+1794556941.058 pid=26145 role=parent INFO child_created child=26146
+1794556941.058 pid=26146 role=child INFO connected
+1794556941.058 pid=26146 role=child INFO disconnected
+1794556941.058 pid=26145 role=parent INFO child_reaped child=26146 exit=0
+1794556941.112 pid=26145 role=parent INFO child_created child=26148
+1794556941.112 pid=26148 role=child INFO connected
+1794556941.113 pid=26148 role=child INFO disconnected
+1794556941.114 pid=26145 role=parent INFO child_reaped child=26148 exit=0
+1794556941.116 pid=26145 role=parent INFO child_created child=26150
+1794556941.117 pid=26150 role=child INFO connected
+1794556941.117 pid=26150 role=child ERROR invalid_command
+1794556941.117 pid=26150 role=child INFO disconnected
+1794556941.118 pid=26145 role=parent INFO child_reaped child=26150 exit=0
+1794556941.120 pid=26145 role=parent INFO child_created child=26152
+1794556941.121 pid=26152 role=child INFO connected
+1794556941.121 pid=26152 role=child INFO disconnected
+1794556941.122 pid=26145 role=parent INFO child_reaped child=26152 exit=0
+1794556941.123 pid=26145 role=parent INFO child_created child=26154
+1794556941.124 pid=26154 role=child INFO connected
+1794556941.124 pid=26154 role=child ERROR invalid_command
+1794556941.124 pid=26154 role=child INFO disconnected
+1794556941.124 pid=26145 role=parent INFO child_reaped child=26154 exit=0
+1794556941.126 pid=26145 role=parent INFO child_created child=26156
+1794556941.126 pid=26156 role=child INFO connected
+1794556941.127 pid=26156 role=child INFO disconnected
+1794556941.127 pid=26145 role=parent INFO child_reaped child=26156 exit=0
+1794556941.129 pid=26145 role=parent INFO child_created child=26158
+1794556941.129 pid=26158 role=child INFO connected
+1794556941.129 pid=26158 role=child ERROR invalid_command
+1794556941.129 pid=26158 role=child INFO disconnected
+1794556941.129 pid=26145 role=parent INFO child_reaped child=26158 exit=0
+1794556941.130 pid=26145 role=parent INFO shutdown_complete active=0
+
+=== compile DEBUG=1, server runtime=0 ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 36615 --log-level 0 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug1-level0.log
+server_parent=26159 port=36615
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5881072 used_kb=2138540 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.208 pid=26163 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5881072 used_kb=2138540 used_pct=26.67
+1794556941.210 pid=26165 role=client INFO connected host=127.0.0.1 port=36615
+1794556941.210 pid=26165 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.212 pid=26167 role=client INFO connected host=127.0.0.1 port=36615
+1794556941.212 pid=26167 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.212 pid=26167 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5881072 used_kb=2138540 used_pct=26.67
+1794556941.214 pid=26169 role=client INFO connected host=127.0.0.1 port=36615
+1794556941.214 pid=26169 role=client DEBUG sending command=GET_MEM
+1794556941.214 pid=26169 role=client DEBUG response_received
+1794556941.214 pid=26169 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 36615 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.215 pid=26171 role=client INFO connected host=127.0.0.1 port=36615
+1794556941.215 pid=26171 role=client DEBUG sending command=BAD
+1794556941.216 pid=26171 role=client DEBUG response_received
+1794556941.216 pid=26171 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.216 pid=26171 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug1-level0.log
+1794556941.207 pid=26164 role=child ERROR invalid_command
+1794556941.212 pid=26168 role=child ERROR invalid_command
+1794556941.216 pid=26172 role=child ERROR invalid_command
+
+=== compile DEBUG=1, server runtime=1 ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 40995 --log-level 1 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug1-level1.log
+server_parent=26173 port=40995
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5881076 used_kb=2138536 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.299 pid=26177 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5881028 used_kb=2138584 used_pct=26.67
+1794556941.301 pid=26179 role=client INFO connected host=127.0.0.1 port=40995
+1794556941.301 pid=26179 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.303 pid=26181 role=client INFO connected host=127.0.0.1 port=40995
+1794556941.304 pid=26181 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.304 pid=26181 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5880804 used_kb=2138808 used_pct=26.67
+1794556941.306 pid=26183 role=client INFO connected host=127.0.0.1 port=40995
+1794556941.306 pid=26183 role=client DEBUG sending command=GET_MEM
+1794556941.306 pid=26183 role=client DEBUG response_received
+1794556941.306 pid=26183 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 40995 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.308 pid=26185 role=client INFO connected host=127.0.0.1 port=40995
+1794556941.308 pid=26185 role=client DEBUG sending command=BAD
+1794556941.308 pid=26185 role=client DEBUG response_received
+1794556941.308 pid=26185 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.308 pid=26185 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug1-level1.log
+1794556941.219 pid=26173 role=parent INFO listening address=127.0.0.1 port=40995 timeout_ms=3000
+1794556941.240 pid=26173 role=parent INFO child_created child=26174
+1794556941.240 pid=26174 role=child INFO connected
+1794556941.240 pid=26174 role=child INFO disconnected
+1794556941.240 pid=26173 role=parent INFO child_reaped child=26174 exit=0
+1794556941.294 pid=26173 role=parent INFO child_created child=26176
+1794556941.294 pid=26176 role=child INFO connected
+1794556941.295 pid=26176 role=child INFO disconnected
+1794556941.295 pid=26173 role=parent INFO child_reaped child=26176 exit=0
+1794556941.298 pid=26173 role=parent INFO child_created child=26178
+1794556941.298 pid=26178 role=child INFO connected
+1794556941.299 pid=26178 role=child ERROR invalid_command
+1794556941.299 pid=26178 role=child INFO disconnected
+1794556941.299 pid=26173 role=parent INFO child_reaped child=26178 exit=0
+1794556941.301 pid=26173 role=parent INFO child_created child=26180
+1794556941.301 pid=26180 role=child INFO connected
+1794556941.302 pid=26180 role=child INFO disconnected
+1794556941.302 pid=26173 role=parent INFO child_reaped child=26180 exit=0
+1794556941.304 pid=26173 role=parent INFO child_created child=26182
+1794556941.304 pid=26182 role=child INFO connected
+1794556941.304 pid=26182 role=child ERROR invalid_command
+1794556941.304 pid=26182 role=child INFO disconnected
+1794556941.304 pid=26173 role=parent INFO child_reaped child=26182 exit=0
+1794556941.306 pid=26173 role=parent INFO child_created child=26184
+1794556941.306 pid=26184 role=child INFO connected
+1794556941.306 pid=26184 role=child INFO disconnected
+1794556941.306 pid=26173 role=parent INFO child_reaped child=26184 exit=0
+1794556941.308 pid=26173 role=parent INFO child_created child=26186
+1794556941.308 pid=26186 role=child INFO connected
+1794556941.308 pid=26186 role=child ERROR invalid_command
+1794556941.308 pid=26186 role=child INFO disconnected
+1794556941.308 pid=26173 role=parent INFO child_reaped child=26186 exit=0
+1794556941.309 pid=26173 role=parent INFO shutdown_complete active=0
+
+=== compile DEBUG=1, server runtime=2 ===
+$ /home/p1yan/mid-project/build/protected-debug1/bin/server --port 34873 --log-level 2 --timeout-ms 3000 2> docs/evidence/verification/tests/logging/server-debug1-level2.log
+server_parent=26187 port=34873
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command GET_MEM --log-level 0
+OK MEM total_kb=8019612 available_kb=5880988 used_kb=2138624 used_pct=26.67
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command BAD --log-level 0
+ERR INVALID_REQUEST
+1794556941.388 pid=26191 role=client ERROR server response=ERR INVALID_REQUEST
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command GET_MEM --log-level 1
+OK MEM total_kb=8019612 available_kb=5880988 used_kb=2138624 used_pct=26.67
+1794556941.390 pid=26193 role=client INFO connected host=127.0.0.1 port=34873
+1794556941.391 pid=26193 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command BAD --log-level 1
+ERR INVALID_REQUEST
+1794556941.392 pid=26195 role=client INFO connected host=127.0.0.1 port=34873
+1794556941.393 pid=26195 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.393 pid=26195 role=client INFO disconnected
+exit=1
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command GET_MEM --log-level 2
+OK MEM total_kb=8019612 available_kb=5880988 used_kb=2138624 used_pct=26.67
+1794556941.394 pid=26197 role=client INFO connected host=127.0.0.1 port=34873
+1794556941.394 pid=26197 role=client DEBUG sending command=GET_MEM
+1794556941.395 pid=26197 role=client DEBUG response_received
+1794556941.395 pid=26197 role=client INFO disconnected
+exit=0
+$ /home/p1yan/mid-project/build/protected-debug1/bin/client --port 34873 --command BAD --log-level 2
+ERR INVALID_REQUEST
+1794556941.396 pid=26199 role=client INFO connected host=127.0.0.1 port=34873
+1794556941.396 pid=26199 role=client DEBUG sending command=BAD
+1794556941.396 pid=26199 role=client DEBUG response_received
+1794556941.396 pid=26199 role=client ERROR server response=ERR INVALID_REQUEST
+1794556941.396 pid=26199 role=client INFO disconnected
+exit=1
+server_exit=0 log=docs/evidence/verification/tests/logging/server-debug1-level2.log
+1794556941.312 pid=26187 role=parent INFO listening address=127.0.0.1 port=34873 timeout_ms=3000
+1794556941.312 pid=26187 role=parent DEBUG debug_enabled
+1794556941.332 pid=26187 role=parent INFO child_created child=26188
+1794556941.332 pid=26188 role=child INFO connected
+1794556941.333 pid=26188 role=child INFO disconnected
+1794556941.333 pid=26187 role=parent INFO child_reaped child=26188 exit=0
+1794556941.385 pid=26187 role=parent INFO child_created child=26190
+1794556941.385 pid=26190 role=child INFO connected
+1794556941.385 pid=26190 role=child DEBUG request_start mono_ms=7133391 command=GET_MEM
+1794556941.385 pid=26190 role=child DEBUG request_end mono_ms=7133392 elapsed_ms=1
+1794556941.386 pid=26190 role=child INFO disconnected
+1794556941.386 pid=26187 role=parent INFO child_reaped child=26190 exit=0
+1794556941.388 pid=26187 role=parent INFO child_created child=26192
+1794556941.388 pid=26192 role=child INFO connected
+1794556941.388 pid=26192 role=child DEBUG request_start mono_ms=7133394 command=BAD
+1794556941.388 pid=26192 role=child ERROR invalid_command
+1794556941.388 pid=26192 role=child DEBUG request_end mono_ms=7133394 elapsed_ms=0
+1794556941.388 pid=26192 role=child INFO disconnected
+1794556941.388 pid=26187 role=parent INFO child_reaped child=26192 exit=0
+1794556941.390 pid=26187 role=parent INFO child_created child=26194
+1794556941.390 pid=26194 role=child INFO connected
+1794556941.390 pid=26194 role=child DEBUG request_start mono_ms=7133397 command=GET_MEM
+1794556941.391 pid=26194 role=child DEBUG request_end mono_ms=7133397 elapsed_ms=0
+1794556941.391 pid=26194 role=child INFO disconnected
+1794556941.391 pid=26187 role=parent INFO child_reaped child=26194 exit=0
+1794556941.393 pid=26187 role=parent INFO child_created child=26196
+1794556941.393 pid=26196 role=child INFO connected
+1794556941.393 pid=26196 role=child DEBUG request_start mono_ms=7133399 command=BAD
+1794556941.393 pid=26196 role=child ERROR invalid_command
+1794556941.393 pid=26196 role=child DEBUG request_end mono_ms=7133399 elapsed_ms=0
+1794556941.393 pid=26196 role=child INFO disconnected
+1794556941.393 pid=26187 role=parent INFO child_reaped child=26196 exit=0
+1794556941.394 pid=26187 role=parent INFO child_created child=26198
+1794556941.395 pid=26198 role=child INFO connected
+1794556941.395 pid=26198 role=child DEBUG request_start mono_ms=7133401 command=GET_MEM
+1794556941.395 pid=26198 role=child DEBUG request_end mono_ms=7133401 elapsed_ms=0
+1794556941.395 pid=26198 role=child INFO disconnected
+1794556941.395 pid=26187 role=parent INFO child_reaped child=26198 exit=0
+1794556941.396 pid=26187 role=parent INFO child_created child=26200
+1794556941.396 pid=26200 role=child INFO connected
+1794556941.396 pid=26200 role=child DEBUG request_start mono_ms=7133402 command=BAD
+1794556941.396 pid=26200 role=child ERROR invalid_command
+1794556941.396 pid=26200 role=child DEBUG request_end mono_ms=7133402 elapsed_ms=0
+1794556941.396 pid=26200 role=child INFO disconnected
+1794556941.396 pid=26187 role=parent INFO child_reaped child=26200 exit=0
+1794556941.397 pid=26187 role=parent INFO shutdown_complete active=0
+
+PASS: logging

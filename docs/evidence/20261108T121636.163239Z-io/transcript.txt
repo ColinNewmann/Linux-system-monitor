@@ -1,8 +1,0 @@
-test=io utc=20261108T121636.163239Z cwd=/home/p1yan/mid-project
-$ python3 tests/test_io.py --out build/protected-debug1
-uname= posix.uname_result(sysname='Linux', nodename='DESKTOP-AQS1TRD', release='6.18.54.1-microsoft-standard-WSL2', version='#1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026', machine='x86_64')
-$ /home/p1yan/mid-project/build/protected-debug1/bin/io_probe
-partial writes: sent and verified 1048576 bytes; SO_SNDBUF requested=4096
-blocked writer: result=-2 elapsed_ms=101
-exit=0
-PASS: io

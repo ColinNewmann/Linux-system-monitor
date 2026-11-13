@@ -1,0 +1,88 @@
+============================================================
+Linux System Monitor | LIBRARY
+UTC: 2026-11-13 08:06:27
+Full execution log: docs/evidence/demo/library.log
+============================================================
+$ make DEBUG=1 VARIANT=protected all
+make: Nothing to be done for 'all'.
+$ ldd build/protected-debug1/bin/client
+	linux-vdso.so.1 (0x00007f478f347000)
+	libmonitor.so => /home/p1yan/mid-project/build/protected-debug1/bin/../lib/libmonitor.so (0x00007f478f335000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x00007f478f000000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f478f349000)
+$ ldd build/protected-debug1/bin/server
+	linux-vdso.so.1 (0x00007ba2e1a81000)
+	libmonitor.so => /home/p1yan/mid-project/build/protected-debug1/bin/../lib/libmonitor.so (0x00007ba2e1a6d000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x00007ba2e1800000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007ba2e1a83000)
+$ readelf -d build/protected-debug1/bin/client
+
+Dynamic section at offset 0x2cc0 contains 29 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libmonitor.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN/../lib]
+ 0x000000000000000c (INIT)               0x1000
+ 0x000000000000000d (FINI)               0x1ba0
+ 0x0000000000000019 (INIT_ARRAY)         0x3b30
+ 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
+ 0x000000000000001a (FINI_ARRAY)         0x3b38
+ 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
+ 0x000000006ffffef5 (GNU_HASH)           0x390
+ 0x0000000000000005 (STRTAB)             0x6d0
+ 0x0000000000000006 (SYMTAB)             0x3b8
+ 0x000000000000000a (STRSZ)              465 (bytes)
+ 0x000000000000000b (SYMENT)             24 (bytes)
+ 0x0000000000000015 (DEBUG)              0x0
+ 0x0000000000000003 (PLTGOT)             0x3ed0
+ 0x0000000000000002 (PLTRELSZ)           528 (bytes)
+ 0x0000000000000014 (PLTREL)             RELA
+ 0x0000000000000017 (JMPREL)             0xbc0
+ 0x0000000000000007 (RELA)               0x938
+ 0x0000000000000008 (RELASZ)             648 (bytes)
+ 0x0000000000000009 (RELAENT)            24 (bytes)
+ 0x000000000000001e (FLAGS)              BIND_NOW
+ 0x000000006ffffffb (FLAGS_1)            Flags: NOW PIE
+ 0x000000006ffffffe (VERNEED)            0x8e8
+ 0x000000006fffffff (VERNEEDNUM)         1
+ 0x000000006ffffff0 (VERSYM)             0x8a2
+ 0x000000006ffffff9 (RELACOUNT)          17
+ 0x0000000000000000 (NULL)               0x0
+ 0x0000000000000001 (NEEDED)             Shared library: [libmonitor.so]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN/../lib]
+$ readelf -d build/protected-debug1/bin/server
+
+Dynamic section at offset 0x4c48 contains 29 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libmonitor.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN/../lib]
+ 0x000000000000000c (INIT)               0x2000
+ 0x000000000000000d (FINI)               0x3ac0
+ 0x0000000000000019 (INIT_ARRAY)         0x5b50
+ 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
+ 0x000000000000001a (FINI_ARRAY)         0x5b58
+ 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
+ 0x000000006ffffef5 (GNU_HASH)           0x390
+ 0x0000000000000005 (STRTAB)             0x880
+ 0x0000000000000006 (SYMTAB)             0x3b8
+ 0x000000000000000a (STRSZ)              608 (bytes)
+ 0x000000000000000b (SYMENT)             24 (bytes)
+ 0x0000000000000015 (DEBUG)              0x0
+ 0x0000000000000003 (PLTGOT)             0x5e58
+ 0x0000000000000002 (PLTRELSZ)           984 (bytes)
+ 0x0000000000000014 (PLTREL)             RELA
+ 0x0000000000000017 (JMPREL)             0xdb8
+ 0x0000000000000007 (RELA)               0xba8
+ 0x0000000000000008 (RELASZ)             528 (bytes)
+ 0x0000000000000009 (RELAENT)            24 (bytes)
+ 0x000000000000001e (FLAGS)              BIND_NOW
+ 0x000000006ffffffb (FLAGS_1)            Flags: NOW PIE
+ 0x000000006ffffffe (VERNEED)            0xb48
+ 0x000000006fffffff (VERNEEDNUM)         1
+ 0x000000006ffffff0 (VERSYM)             0xae0
+ 0x000000006ffffff9 (RELACOUNT)          13
+ 0x0000000000000000 (NULL)               0x0
+ 0x0000000000000001 (NEEDED)             Shared library: [libmonitor.so]
+ 0x000000000000001d (RUNPATH)            Library runpath: [$ORIGIN/../lib]
+PASS: library (all commands completed successfully)
