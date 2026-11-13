@@ -82,5 +82,10 @@ Evidence is grouped into `verification/` (full test results), `demo/` (terminal 
 
 Use `DEMO_PORT=18080` if port 8080 is occupied. A failed step exits with a nonzero status and retains its output.
 
-- [Project report: architecture, tests, and packet analysis](docs/report.md)
+- [Formal report, source appendix, and figure assets](docs/report/README.md)
+- [Technical design and verification notes](docs/report.md)
 - [Reproduction and screenshot guide](docs/demo_guide.md)
+
+## Repository contents
+
+The repository includes C source, Make targets, test/demo scripts, retained execution evidence, and the final English Word report. Generated executables, local document drafts, Office lock files, and Windows download metadata are ignored. See [report deliverables](docs/report/README.md) for the authoritative report and PDF-export status.

@@ -1,4 +1,6 @@
-# Linux System Monitor — Project Report
+# Linux System Monitor — Technical Design and Verification Notes
+
+The [formal English Word report and submission assets](report/README.md) are maintained separately. This document provides repository-level technical detail.
 
 ## Overview
 
@@ -85,7 +87,7 @@ The full verification on 2026-11-13 used WSL2 Ubuntu 26.04.1 LTS, GCC 15.2.0, Ma
 
 Ten connections were held open and synchronized with a barrier before sending GET_CPU. Child PIDs 25965–25974 belonged to the same parent. Concurrent completion took 0.232571 s, compared with 2.014228 s sequentially; server timestamps established a 200 ms common overlap. These are observations from that run, not performance guarantees.
 
-The terminal demonstration workflow was also exercised on 2026-11-13. [Demonstration logs](evidence/demo/) record clean build, queries, concurrency, linkage, logging, robustness, saved-pcap analysis, and lifecycle steps. That concurrency run took 0.232919 s concurrently and 2.014874 s sequentially, with 200 ms common server overlap.
+The terminal demonstration workflow was also exercised on 2026-11-13. [Demonstration logs](evidence/demo/) record clean build, queries, concurrency, linkage, logging, robustness, saved-pcap analysis, and lifecycle steps. The retained committed demonstration took 0.232919 s concurrently and 2.014874 s sequentially, with 200 ms common server overlap. Later screenshot runs may show different values; their redundant local logs are not part of the submitted evidence set.
 
 [Interactive checks](evidence/demo/script-checks.log) verified menu selection, screenshot pauses, invalid arguments, missing capture files, signal cleanup, port-conflict handling, and rejection of an unsafe evidence root. A separately running server remained available after the demo encountered its occupied port. These checks did not perform a new privileged capture.
 
@@ -103,6 +105,8 @@ A separate loopback-only Baseline uses bounded prefix parsing, omits request dea
 [Comparison transcript](evidence/verification/tests/robustness/transcript.txt). Slow partial input also failed to extend the deadline. SIGPIPE was reproduced using socketpair against the same shared-library send function; TCP reset was a separate integration test. The baseline uses bounded buffers and no intentional memory corruption. Fault injection uses a separate `server-fault` binary with linker wrapping of fopen, leaving the normal server and `/proc` unchanged.
 
 ## Packet capture and analysis
+
+The original capture analyzed below is retained separately from the later user capture shown in the final Word report. The [later live-capture summary](evidence/packet-capture/report-capture/summary.json) records 40 packets across four query connections, with 40 captured / 80 received by filter / 0 kernel drops visible in the report screenshot. The original capture includes a readiness probe and therefore has 46 packets.
 
 A manual tcpdump capture on `lo`, filtered by TCP port 8080, recorded four queries on 2026-11-08 at 20:26:56–20:26:57 Asia/Taipei. The [pcap](evidence/packet-capture/monitor.pcap) contains 46 complete Ethernet records (4,183 bytes), five SYN/SYN-ACK pairs, ten FIN flags, and no RST. One connection is a readiness probe; the other four each carry one request and response.
 

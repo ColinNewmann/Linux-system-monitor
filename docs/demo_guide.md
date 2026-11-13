@@ -22,22 +22,22 @@ The script is a plain-text Bash program and needs no compilation. Invoking it wi
 
 ## Screenshot checklist
 
-Run each command below in Terminal A. Take the screenshot when the step pauses; use scrollback where indicated. Existing manually started servers must not occupy the demo port. The build step removes only generated `build/` artifacts.
+Figure numbers refer to the final [English Word report](report/Midterm_Report_EN.docx), including the three added illustrations. Run each command below in Terminal A. Take the screenshot when the step pauses; use scrollback where indicated. Existing manually started servers must not occupy the demo port. The build step removes only generated `build/` artifacts.
 
-| Figure | Command | Include in the screenshot | Suggested caption |
+| Report figure | Command | Include in the screenshot | Suggested caption |
 |---|---|---|---|
-| 1 | `bash scripts/demo.sh build` | Compiler/linker commands, three artifacts, PASS | Clean build of the client, server, and shared library. |
-| 2 | `bash scripts/demo.sh queries` | Four commands, actual OK responses, normal shutdown | System information returned by the TCP monitoring service. |
-| 3 | `bash scripts/demo.sh concurrency` | Ten PIDs, request intervals, overlap, concurrent/sequential times | Concurrent processing of ten clients by separate child processes. |
-| 4 | `bash scripts/demo.sh library` | Both ldd outputs, libmonitor.so, NEEDED and RUNPATH | Dynamic linkage of both executables to libmonitor.so. |
-| 5a | `bash scripts/demo.sh logging` | First pause: compile/runtime combinations and PASS | Verification of compile-time and runtime logging controls. |
-| 5b | Continue the logging step | Levels 0/1/2 and DEBUG=0 output | Client log output under different build and runtime settings. |
-| 6 | `bash scripts/demo.sh robustness` | Both variants: input rejection, remaining children, SIGPIPE/EPIPE | Baseline and protected behavior for malformed input, timeouts, and disconnections. |
-| 7a | `bash scripts/demo.sh capture` | First pause: original capture date, counts, query delays | Analysis of the recorded loopback TCP capture from 8 November 2026. |
-| 7b | Continue the capture step | GET_MEM handshake, payloads, ACKs, FIN (use scrollback) | TCP connection establishment, request/response exchange, and normal closure. |
-| 8 | `bash scripts/demo.sh lifecycle` | FD count, children held during shutdown, same-port restart | Child cleanup, stable descriptors, and successful server restart. |
+| 3 | `bash scripts/demo.sh build` | Compiler/linker commands, three artifacts, PASS | Clean build of the client, server, and shared library. |
+| 4 | `bash scripts/demo.sh queries` | Four commands, actual OK responses, normal shutdown | System information returned by the TCP monitoring service. |
+| 6 | `bash scripts/demo.sh concurrency` | Ten PIDs, request intervals, overlap, concurrent/sequential times | Concurrent processing of ten clients by separate child processes. |
+| 7 | `bash scripts/demo.sh library` | Both ldd outputs, libmonitor.so, NEEDED and RUNPATH | Dynamic linkage of both executables to libmonitor.so. |
+| 9 (panel A) | `bash scripts/demo.sh logging` | First pause: compile/runtime combinations and PASS | Verification of compile-time and runtime logging controls. |
+| 9 (panel B) | Continue the logging step | Levels 0/1/2 and DEBUG=0 output | Client log output under different build and runtime settings. |
+| 11 | `bash scripts/demo.sh robustness` | Both variants: input rejection, remaining children, SIGPIPE/EPIPE | Baseline and protected behavior for malformed input, timeouts, and disconnections. |
+| Optional historical summary | `bash scripts/demo.sh capture` | First pause: original capture date, counts, query delays | Analysis of the recorded loopback TCP capture from 8 November 2026. |
+| 14–15 (historical replay) | Continue the capture step | GET_MEM handshake, payloads, ACKs, FIN (use scrollback) | TCP connection establishment, request/response exchange, and normal closure. |
+| Optional appendix | `bash scripts/demo.sh lifecycle` | FD count, children held during shutdown, same-port restart | Child cleanup, stable descriptors, and successful server restart. |
 
-The capture menu item replays the real saved pcap; it does not create a new capture. Its counts and timing belong to the displayed recording date. For a new capture and a current tcpdump statistics screenshot, follow the next section.
+The later capture used in the report is preserved under `docs/evidence/packet-capture/report-capture/`. The capture menu item replays the original saved pcap; it does not create a new capture. Its counts and timing belong to the displayed recording date. For a new capture and a current tcpdump statistics screenshot, follow the next section.
 
 ## New packet capture: two terminals
 
@@ -59,7 +59,7 @@ sudo tcpdump -Z "$(id -un)" -i lo -nn -s 0 -U \
 3. When prompted, press Ctrl+C in Terminal B. Photograph that terminal, including the tcpdump command and captured/received/dropped statistics.
 4. Return to Terminal A and press Enter. The script decodes the new pcap, checks that all four request/response pairs are present, and displays payload packets. Photograph this output as well.
 
-Suggested caption: *Live loopback packet capture of the monitoring protocol and tcpdump capture statistics.*
+Use the tcpdump terminal and final statistics for report Figure 13, and decoded packets for Figures 14–15. Suggested caption: *Live loopback packet capture of the monitoring protocol and tcpdump capture statistics.*
 
 The script never invokes sudo itself. Stopping Terminal A does not stop the user-owned tcpdump in Terminal B; stop that capture explicitly with Ctrl+C. Live mode requires an interactive terminal and cannot be combined with `--no-pause` or `all`.
 

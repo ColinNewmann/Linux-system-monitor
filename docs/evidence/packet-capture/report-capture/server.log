@@ -1,0 +1,27 @@
+1794583943.394 pid=69332 role=parent INFO listening address=127.0.0.1 port=8080 timeout_ms=30000
+1794583943.394 pid=69332 role=parent DEBUG debug_enabled
+1794583943.403 pid=69332 role=parent INFO child_created child=69340
+1794583943.403 pid=69340 role=child INFO connected
+1794583943.403 pid=69340 role=child DEBUG request_start mono_ms=19067416 command=GET_STATUS
+1794583943.604 pid=69340 role=child DEBUG request_end mono_ms=19067617 elapsed_ms=201
+1794583943.604 pid=69340 role=child INFO disconnected
+1794583943.605 pid=69332 role=parent INFO child_reaped child=69340 exit=0
+1794583943.614 pid=69332 role=parent INFO child_created child=69345
+1794583943.614 pid=69345 role=child INFO connected
+1794583943.614 pid=69345 role=child DEBUG request_start mono_ms=19067627 command=GET_CPU
+1794583943.814 pid=69345 role=child DEBUG request_end mono_ms=19067828 elapsed_ms=201
+1794583943.815 pid=69345 role=child INFO disconnected
+1794583943.815 pid=69332 role=parent INFO child_reaped child=69345 exit=0
+1794583943.826 pid=69332 role=parent INFO child_created child=69350
+1794583943.826 pid=69350 role=child INFO connected
+1794583943.826 pid=69350 role=child DEBUG request_start mono_ms=19067840 command=GET_MEM
+1794583943.826 pid=69350 role=child DEBUG request_end mono_ms=19067840 elapsed_ms=0
+1794583943.827 pid=69350 role=child INFO disconnected
+1794583943.827 pid=69332 role=parent INFO child_reaped child=69350 exit=0
+1794583943.833 pid=69332 role=parent INFO child_created child=69355
+1794583943.833 pid=69355 role=child INFO connected
+1794583943.834 pid=69355 role=child DEBUG request_start mono_ms=19067847 command=GET_UPTIME
+1794583943.834 pid=69355 role=child DEBUG request_end mono_ms=19067847 elapsed_ms=0
+1794583943.834 pid=69355 role=child INFO disconnected
+1794583943.834 pid=69332 role=parent INFO child_reaped child=69355 exit=0
+1794583943.839 pid=69332 role=parent INFO shutdown_complete active=0

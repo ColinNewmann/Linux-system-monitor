@@ -1,0 +1,28 @@
+{
+  "capture": "monitor.pcap",
+  "sha256": "e6d4128ee6f4161719e89933d5e8ef6a0dd65498827cf66950ae2c24d714cd9e",
+  "packet_count": 40,
+  "connections": 4,
+  "requests": [
+    "GET_STATUS\n",
+    "GET_CPU\n",
+    "GET_MEM\n",
+    "GET_UPTIME\n"
+  ],
+  "responses": [
+    "OK STATUS cpu_pct=1.85 sample_ms=200 total_kb=8019612 available_kb=5604400 used_kb=2415212 used_pct=30.12 uptime_seconds=19067.61\n",
+    "OK CPU usage_pct=6.67 sample_ms=201\n",
+    "OK MEM total_kb=8019612 available_kb=5603520 used_kb=2416092 used_pct=30.13\n",
+    "OK UPTIME seconds=19067.84\n"
+  ],
+  "first_packet_utc": "2026-11-13T15:32:23.403072+00:00",
+  "last_packet_utc": "2026-11-13T15:32:23.834437+00:00",
+  "statistics": {
+    "captured": 40,
+    "received_by_filter": 80,
+    "dropped_by_kernel": 0
+  },
+  "statistics_source": "Figure 13 embedded in docs/report/Midterm_Report_EN.docx",
+  "note": "Analyzed existing capture during repository preparation; no new traffic or capture.",
+  "provenance": "Later user-operated capture on 2026-11-13. Full local demonstration run retained in ignored docs/report/drafts/local-demo-run/."
+}

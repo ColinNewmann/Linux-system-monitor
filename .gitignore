@@ -4,3 +4,17 @@ lib/
 __pycache__/
 *.pyc
 
+# Local report drafts, previews, and Office/Windows metadata
+docs/report/drafts/
+~$*
+*.tmp
+*.bak
+*:Zone.Identifier
+.DS_Store
+
+# Local environments and credentials
+.venv/
+.env
+.env.*
+!.env.example
+

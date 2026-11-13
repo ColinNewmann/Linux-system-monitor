@@ -1,0 +1,84 @@
+{
+  "prepared_utc": "2026-11-13T17:28:09.726963+00:00",
+  "canonical_report": "Midterm_Report_EN.docx",
+  "report_sha256": "d467fd4d851eb4cd62d0f3346567b5c2d3be4b6092eabd01aad3261b3a611517",
+  "figures": [
+    {
+      "number": 1,
+      "file": "figures/figure-01-architecture.png",
+      "sha256": "51fcd14b676870b53366c5809bc90f358d0f8fbbfbe3c751df453cb2866b2194"
+    },
+    {
+      "number": 2,
+      "file": "figures/figure-02-request-sequence.png",
+      "sha256": "7006efde1d5f9ef31350ff92ab9606bb4f0e07b68cd31a284f45340c63eecb5a"
+    },
+    {
+      "number": 3,
+      "sha256": "07f37e23c6e9c2d0d4fb77d7fc9e06af306a62a34c659b9a285a844f40ba29e8",
+      "storage": "Embedded in Midterm_Report_EN.docx only; separate duplicate omitted."
+    },
+    {
+      "number": 4,
+      "sha256": "bc827f72998e09e18d4e4aab6e64ce977c6ac0d5ce2915fc83bfbaf4fa2b027f",
+      "storage": "Embedded in Midterm_Report_EN.docx only; separate duplicate omitted."
+    },
+    {
+      "number": 5,
+      "file": "figures/figure-05-processing-intervals.png",
+      "sha256": "3da9cff0983f3c4ca91df9971ad8aed413e4085c62d37931133d27f3cd4943ae"
+    },
+    {
+      "number": 6,
+      "sha256": "3c7474380a892d4b96df02f6560aa73183c96e1f1010ad9a971eb946d10bf782",
+      "storage": "Embedded in Midterm_Report_EN.docx only; separate duplicate omitted."
+    },
+    {
+      "number": 7,
+      "sha256": "9d2292aaf396ac4b2d71432183d7beedf5df2313b8b5de3f9b3198cff67ceaac",
+      "storage": "Embedded in Midterm_Report_EN.docx only; separate duplicate omitted."
+    },
+    {
+      "number": 8,
+      "file": "figures/figure-08-logging-controls.png",
+      "sha256": "2128c4fa415992a07d91598cbb85ba58276c45223ad88d26b603c1dcbf6469f5"
+    },
+    {
+      "number": 9,
+      "sha256": "ad4dae1007ffe07abb48685814fe17b9d3915dfb1081a072763f8481e7fd55f7",
+      "storage": "Embedded in Midterm_Report_EN.docx only; separate duplicate omitted."
+    },
+    {
+      "number": 10,
+      "file": "figures/figure-10-robustness-comparison.png",
+      "sha256": "63dc3d624ee86252134887898f67fffeb0d6aaf2da78960416f453573d12e09c"
+    },
+    {
+      "number": 11,
+      "sha256": "427e2257572bf05d312adcac918f2e297b78b1782b67539daa523f7e192da53e",
+      "storage": "Embedded in Midterm_Report_EN.docx only; separate duplicate omitted."
+    },
+    {
+      "number": 12,
+      "file": "figures/figure-12-tcp-sequence.png",
+      "sha256": "b516a3bbd50bcaf7c1e3bc3cd47524b9be5d090e206d656ca9ab6d9a2d6cbf89"
+    },
+    {
+      "number": 13,
+      "sha256": "5f5f936fc3660d1e7c79a7424a9e3406567ea9a3e2e8130efd7f1e596b1af941",
+      "storage": "Embedded in Midterm_Report_EN.docx only; separate duplicate omitted."
+    },
+    {
+      "number": 14,
+      "sha256": "c634dc46befda427a885bf02e1c9ae8815ed48283eeb582a72988f4391072d5a",
+      "storage": "Embedded in Midterm_Report_EN.docx only; separate duplicate omitted."
+    },
+    {
+      "number": 15,
+      "sha256": "b3e79e05f2bdcfc827c59fe05880d90f6a6957ff03dcb80985dd23aa044631a6",
+      "storage": "Embedded in Midterm_Report_EN.docx only; separate duplicate omitted."
+    }
+  ],
+  "pdf_status": "Export the final Word document in Word; the old main-report PDF was a pre-screenshot draft and is not published.",
+  "publication_policy": "Publish final English Word, source appendix PDF, six standalone diagrams, vector sources, and essential capture evidence. Screenshots are embedded only."
+}
